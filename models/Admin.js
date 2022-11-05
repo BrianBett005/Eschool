@@ -9,7 +9,6 @@ const AdminSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, "You must provide a name"],
     },
     username: {
       type: String,
@@ -17,8 +16,7 @@ const AdminSchema = new Schema(
       unique: [true, "This username already exists"],
     },
     phone: {
-      type: number,
-      required: true,
+      type: Number,
     },
     email: {
       type: String,
@@ -34,10 +32,9 @@ const AdminSchema = new Schema(
       default: "admin",
     },
     profilePic: {
-      public_id: { type: String, required: true },
+      public_id: { type: String },
       url: {
         type: String,
-        required: true,
       },
     },
     password: {
@@ -55,12 +52,13 @@ AdminSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-
 AdminSchema.methods.comparePassword = async function (userPassword) {
   const isMatch = await bcrypt.compare(userPassword, this.password);
   return isMatch;
 };
-
+AdminSchema.pre("remove", async function (next) {
+  await this.model("Post").deleteMany({ author: this._id });
+});
 let Admin = mongoose.model("Adnin", AdminSchema);
 
 module.exports = Admin;

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const CommentSchema = new mongoose.Schema(
+const GallerySchema = new mongoose.Schema(
   {
     images: {
       type: Array,
@@ -14,4 +14,4 @@ const CommentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Comment", CommentSchema);
+module.exports = mongoose.model("Gallery", GallerySchema);

@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 
 const validator = require("validator");
-
+const bcrypt = require("bcryptjs");
 const Schema = mongoose.Schema;
 
 const SchoolSchema = new Schema(
   {
     school_name: {
       type: String,
+      unique: [true, "A school by this name already exists"],
       required: [true, "You must provide a name"],
     },
     address: {
@@ -24,11 +25,11 @@ const SchoolSchema = new Schema(
       select: false,
     },
     description: {
-        type: String,
+      type: String,
     },
-    moto: {
-        type: String,
-        required: true,
+    motto: {
+      type: String,
+      required: true,
     },
     phone: {
       type: Number,
@@ -44,9 +45,9 @@ const SchoolSchema = new Schema(
       required: true,
     },
     ownership: {
-        type: String,
-        default: "Private",
-        enum: ["Private", "Public"],
+      type: String,
+      default: "Private",
+      enum: ["Private", "Public"],
     },
     type: {
       type: String,
@@ -54,33 +55,57 @@ const SchoolSchema = new Schema(
       enum: ["Primary", "Nursery", "Secondary"],
     },
     mgt_no: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     owner_name: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     has_activated: {
       type: Boolean,
       default: false,
     },
+    // logo: {
+    //   public_id: { type: String, required: true },
+    //   url: {
+    //     type: String,
+    //     required: true,
+    //   },
+    // },
     logo: {
-      public_id: { type: String, required: true },
+      public_id: { type: String },
       url: {
         type: String,
-        required: true,
       },
     },
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+
+    password: {
+      type: String,
+      required: [true, "You must provide a password!"],
+      select: false,
     },
   },
   { timestamps: true }
 );
 SchoolSchema.index({ name: "name" });
+SchoolSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+SchoolSchema.pre("remove", async function (next) {
+  await this.model("Note").deleteMany({ school: this._id });
+  await this.model("Event").deleteMany({ school: this._id });
+  await this.model("Gallery").deleteMany({ school: this._id });
+  // await this.model("Result").deleteMany({ school: this._id });
+});
+
+SchoolSchema.methods.comparePassword = async function (userPassword) {
+  const isMatch = await bcrypt.compare(userPassword, this.password);
+  return isMatch;
+};
 let School = mongoose.model("School", SchoolSchema);
 
 module.exports = School;
