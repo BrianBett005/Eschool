@@ -15,7 +15,6 @@ const mongoSanitize = require("express-mongo-sanitize");
 
 const notFoundMiddleware = require("./middlewares/not-found");
 const errorHandlerMiddleware = require("./middlewares/error-handler");
-
 const schoolsRouter = require("./routes/School");
 const notesRouter = require("./routes/Note");
 const eventsRouter = require("./routes/Event");
@@ -36,7 +35,6 @@ app.use(
     useTempFiles: true,
   })
 );
-
 
 app.set("trust proxy", 1);
 app.use(
