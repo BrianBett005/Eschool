@@ -20,8 +20,10 @@ router.route("/").post(createSchool).get(getAllSchools);
 router
   .route("/school/:school_id")
   .get(authenticateUser, getSchool)
-  .put(authenticateUser, updateSchool)
-  .delete(authenticateUser, deleteSchool);
+ router
+   .route("/school")
+   .put(authenticateUser, updateSchool)
+   .delete(authenticateUser, deleteSchool);
 
 router.route("/search").get(searchSchool);
 router.route("/login").post(loginSchool);

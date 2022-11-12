@@ -13,10 +13,10 @@ const SchoolSchema = new Schema(
     },
     address: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
+      required: true,
       unique: true,
       validate: {
         validator: validator.isEmail,
@@ -29,7 +29,6 @@ const SchoolSchema = new Schema(
     },
     motto: {
       type: String,
-      required: true,
     },
     phone: {
       type: Number,
@@ -38,11 +37,9 @@ const SchoolSchema = new Schema(
     },
     state: {
       type: String,
-      required: true,
     },
     lg: {
       type: Array,
-      required: true,
     },
     ownership: {
       type: String,
@@ -56,24 +53,21 @@ const SchoolSchema = new Schema(
     },
     mgt_no: {
       type: Number,
-      required: true,
     },
     owner_name: {
       type: String,
-      required: true,
     },
     has_activated: {
       type: Boolean,
       default: false,
     },
-    // logo: {
-    //   public_id: { type: String, required: true },
-    //   url: {
-    //     type: String,
-    //     required: true,
-    //   },
-    // },
     logo: {
+      public_id: { type: String },
+      url: {
+        type: String,
+      },
+    },
+    banner: {
       public_id: { type: String },
       url: {
         type: String,

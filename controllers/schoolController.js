@@ -47,7 +47,6 @@ const loginSchool = async (req, res) => {
     const email = req.body.email;
     school = await School.findOne({ email }).select("+password");
   } else {
-    console.log(req.body.school_name);
     school = await School.findOne({ school_name: req.body.school_name }).select(
       "+password"
     );
@@ -90,7 +89,7 @@ const getAllSchools = async (req, res) => {
 };
 
 const updateSchool = async (req, res) => {
-  const schoolToUpdate = await School.findById(req.params.school_id);
+  const schoolToUpdate = await School.findById(req.school.school_id);
   if (!schoolToUpdate) {
     throw new CustomError.NotFoundError("The requested school was not found");
   }
@@ -100,6 +99,13 @@ const updateSchool = async (req, res) => {
     });
     const image = { public_id: result.public_id, url: result.secure_url };
     req.body.logo = image;
+  }
+  if (req.body.banner) {
+    const result = await cloudinary.uploader.upload(req.body.banner, {
+      folder: "School",
+    });
+    const image = { public_id: result.public_id, url: result.secure_url };
+    req.body.banner = image;
   }
   authorizeUser(req.school, schoolToUpdate.school_name);
   await schoolToUpdate.updateOne(req.body, {
@@ -114,7 +120,7 @@ const updateSchool = async (req, res) => {
 };
 
 const deleteSchool = async (req, res) => {
-  const schoolToDelete = await School.findById(req.params.school_id);
+  const schoolToDelete = await School.findById(req.school.school_id);
   if (!schoolToDelete) {
     throw new CustomError.NotFoundError("The requested school was not found");
   }

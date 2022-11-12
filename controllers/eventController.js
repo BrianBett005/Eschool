@@ -40,7 +40,21 @@ const deleteEvent = async (req, res) => {
   res.status(200).json("Event deleted successfully");
 };
 const getASchoolEvents = async (req, res) => {
-  const events = await Event.find({ school: req.params.school_id });
+  const events = await Event.find({ school: req.params.school_id }).populate(
+    "school"
+  );
   res.status(200).json(events);
 };
-module.exports = { createEvent, updateEvent, deleteEvent, getASchoolEvents };
+const getCurrentSchoolEvents = async (req, res) => {
+  const events = await Event.find({ school: req.school.school_id }).populate(
+    "school"
+  );
+  res.status(200).json(events);
+};
+module.exports = {
+  createEvent,
+  updateEvent,
+  deleteEvent,
+  getASchoolEvents,
+  getCurrentSchoolEvents,
+};
