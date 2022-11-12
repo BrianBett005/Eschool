@@ -11,7 +11,7 @@ import {
 export const getAllSchools = () => async (dispatch) => {
   dispatch({ type: GET_ALL_SCHOOLS_REQUEST });
   try {
-    const { data } = await axios.get("http://localhost:5000/api/v1/schools");
+    const { data } = await axios.get("/schools");
     dispatch({ type: GET_ALL_SCHOOLS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -29,7 +29,7 @@ export const updateSchool = (updates) => async (dispatch, getState) => {
     const token = getState()?.signInInfo?.userInfo?.token;
 
     const { data } = await axios.put(
-      "http://localhost:5000/api/v1/schools/school",
+      "/schools/school",
       updates,
       {
         headers: {

@@ -13,7 +13,7 @@ export const signin = (email, password) => async (dispatch) => {
   dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
   try {
     const { data } = await axios.post(
-      "http://localhost:5000/api/v1/schools/login",
+      "/schools/login",
       {
         email,
         password,
@@ -45,7 +45,7 @@ export const signup =
     });
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/v1/schools/register",
+        "/schools/register",
         {
           email,
           phone,
@@ -68,7 +68,7 @@ export const signup =
   };
 
 export const signout = () => async (dispatch) => {
-  await axios.post("http://localhost:5000/api/v1/admin/logout");
+  await axios.post("/admin/logout");
   localStorage.removeItem("eSchooluserDetails");
 
   dispatch({ type: USER_SIGNOUT });
