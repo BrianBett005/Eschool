@@ -6,7 +6,7 @@ const app = express();
 const connectDB = require("./config/connect");
 
 const morgan = require("morgan");
-
+const bodyParser = require("body-parser");
 const rateLimiter = require("express-rate-limit");
 const helmet = require("helmet");
 const xss = require("xss-clean");
@@ -23,6 +23,18 @@ const galleryRouter = require("./routes/Gallery");
 const postsRouter = require("./routes/Post");
 const adminRouter = require("./routes/Admin");
 const commentsRouter = require("./routes/Comments");
+const fileupload = require("express-fileupload");
+
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(
+  fileupload({
+    useTempFiles: true,
+  })
+);
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 app.set("trust proxy", 1);
 app.use(

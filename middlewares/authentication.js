@@ -24,8 +24,8 @@ const authenticateAdmin = async (req, res, next) => {
   }
   const token = AuthorizationHeader.split(" ")[1];
   try {
-    const { username, firstname, userId, role } = isTokenValid({ token });
-    req.user = { username, firstname, userId, role };
+    const { username, name, userId, role } = isTokenValid({ token });
+    req.user = { username, name, userId, role };
     next();
   } catch (error) {
     throw new CustomError.UnauthenticatedError("Invalid authentication x");

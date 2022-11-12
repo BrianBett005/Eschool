@@ -12,12 +12,18 @@ const PostSchema = new Schema(
       required: true,
     },
     author: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.ObjectId,
       ref: "Admin",
       required: true,
     },
-    images: {
-      type: Array,
+    category: {
+      type: String,
+    },
+    image: {
+      public_id: { type: String },
+      url: {
+        type: String,
+      },
     },
     tags: {
       type: [String],

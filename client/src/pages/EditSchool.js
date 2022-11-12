@@ -307,7 +307,7 @@ const FileInput = styled.input`
     border-color: red;
   }
 `;
-const SchoolLogo = styled.div`
+const SchoolLogo = styled.img`
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -315,9 +315,6 @@ const SchoolLogo = styled.div`
   margin-top: 12px;
   border: 4px solid #fff;
   cursor: pointer;
-  img {
-    object-fit: cover;
-  }
 `;
 const Banner = styled.div`
   background: #f7f8f9;

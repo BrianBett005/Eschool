@@ -15,6 +15,9 @@ const AdminSchema = new Schema(
       required: [true, "You must provide a username"],
       unique: [true, "This username already exists"],
     },
+    title: {
+      type: String,
+    },
     phone: {
       type: Number,
     },
@@ -25,7 +28,6 @@ const AdminSchema = new Schema(
         validator: validator.isEmail,
         message: "Please provide a valid email address",
       },
-      select: false,
     },
     role: {
       type: String,
@@ -59,6 +61,6 @@ AdminSchema.methods.comparePassword = async function (userPassword) {
 AdminSchema.pre("remove", async function (next) {
   await this.model("Post").deleteMany({ author: this._id });
 });
-let Admin = mongoose.model("Adnin", AdminSchema);
+let Admin = mongoose.model("Admin", AdminSchema);
 
 module.exports = Admin;

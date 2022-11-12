@@ -1,6 +1,6 @@
 const Admin = require("../models/Admin");
 const StatusCodes = require("http-status-codes");
-const { userTokenPayload, createJWT } = require("../utils");
+const { userTokenPayload, createJWT, authorizeUser } = require("../utils");
 const CustomError = require("../errors");
 const cloudinary = require("../services/cloudinary");
 
@@ -29,7 +29,7 @@ const createUser = async (req, res) => {
   }
   if (req.body.profilePic) {
     const result = await cloudinary.uploader.upload(req.body.profilePic, {
-      folder: "users",
+      folder: "admins",
     });
     const image = { public_id: result.public_id, url: result.secure_url };
     req.body.profilePic = image;
@@ -39,6 +39,26 @@ const createUser = async (req, res) => {
   const token = createJWT({ payload: tokenUser });
 
   res.status(200).json({ user: admin, token });
+};
+
+const updateUser = async (req, res) => {
+  if (req.body.profilePic) {
+    const result = await cloudinary.uploader.upload(req.body.profilePic, {
+      folder: "users",
+    });
+    const image = { public_id: result.public_id, url: result.secure_url };
+    req.body.profilePic = image;
+  }
+
+  const user = await Admin.findByIdAndUpdate(req.user.userId, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  const tokenUser = userTokenPayload(user);
+
+  const token = createJWT({ payload: tokenUser });
+
+  res.status(200).json({ user, token });
 };
 
 const login = async (req, res) => {
@@ -69,9 +89,14 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Logged out" });
 };
-
+const getCurrentUser = async (req, res) => {
+  const user = await Admin.findById(req.user.userId);
+  res.status(200).json(user);
+};
 module.exports = {
   createUser,
   login,
   logout,
+  updateUser,
+  getCurrentUser,
 };
