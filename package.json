@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "proxy":"https://edet-school.herokuapp.com/api/v1"
+  "proxy": "https://edet-school.herokuapp.com/api/v1",
   "scripts": {
-    "start": "npm index.js",
+    "start": "node index.js",
     "dev": "nodemon index.js",
     "build": "cd client && npm run build",
     "install-client": "cd client && npm install",

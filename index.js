@@ -23,6 +23,10 @@ const galleryRouter = require("./routes/Gallery");
 const postsRouter = require("./routes/Post");
 const adminRouter = require("./routes/Admin");
 const commentsRouter = require("./routes/Comments");
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 const fileupload = require("express-fileupload");
 
 app.use(bodyParser.json({ limit: "50mb" }));
@@ -32,9 +36,7 @@ app.use(
     useTempFiles: true,
   })
 );
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+
 
 app.set("trust proxy", 1);
 app.use(
