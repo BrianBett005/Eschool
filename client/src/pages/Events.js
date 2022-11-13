@@ -30,7 +30,7 @@ const Events = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (!userInfo?.userInfo) {
+    if (!userInfo?.userInfo?.school) {
       navigate("/login");
     }
     // eslint-disable-next-line
@@ -46,6 +46,7 @@ const Events = () => {
   if (loading) {
     return <Loader />;
   }
+
   return (
     <Wrapper>
       <ContentWrapper>
@@ -66,10 +67,15 @@ const Events = () => {
               return <TableTitle title={tableTitle} key={tableTitle} />;
             })}
           </Titles>
+
           <EventsList>
-            {events?.map((event) => {
-              return <Event key={event._id} {...event} />;
-            })}
+            {events.length === 0 ? (
+              <h1>No events to show! Events created will appear here</h1>
+            ) : (
+              events?.map((event) => {
+                return <Event key={event._id} {...event} />;
+              })
+            )}
           </EventsList>
         </EventsWrapper>
       </ContentWrapper>

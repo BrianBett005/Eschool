@@ -22,7 +22,6 @@ const SchoolSchema = new Schema(
         validator: validator.isEmail,
         message: "Please provide a valid email address",
       },
-      select: false,
     },
     description: {
       type: String,
@@ -33,7 +32,6 @@ const SchoolSchema = new Schema(
     phone: {
       type: Number,
       unique: [true, "This phone number already exists"],
-      select: false,
     },
     state: {
       type: String,

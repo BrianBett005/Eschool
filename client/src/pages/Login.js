@@ -32,7 +32,7 @@ const Login = () => {
       }
     }
     // eslint-disable-next-line
-  }, [userInfo.school]);
+  }, [userInfo?.school]);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const signinUser = (e) => {

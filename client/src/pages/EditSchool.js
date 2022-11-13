@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaTwitter } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 // import { useSelector } from "react-redux";
 
 // import { useNavigate } from "react-router-dom";
@@ -14,7 +15,7 @@ import { useIsMount } from "../hooks/useIsMount";
 import { updateSchool } from "../redux/actions/schoolActions";
 
 const EditSchool = () => {
-  const schoolDetails = useSelector((state) => state.signInInfo);
+  const schoolDetails = useSelector((state) => state.signInInfo.userInfo);
   const [school_name, setName] = useState(schoolDetails?.school?.school_name);
   const [email, setEmail] = useState(schoolDetails?.school?.email);
   const [address, setAddress] = useState(schoolDetails?.school?.address);
@@ -48,11 +49,13 @@ const EditSchool = () => {
     }
     // eslint-disable-next-line
   }, [error]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isMount) {
       if (school) {
         alert("Details updated successfully!");
+        navigate("/");
       }
     }
     // eslint-disable-next-line
@@ -90,15 +93,12 @@ const EditSchool = () => {
               label="School Name"
               onChange={(e) => setName(e.target.value)}
               value={school_name}
-              placeholder="Enter school name"
             />
             <InputWithLabel
               onChange={(e) => setEmail(e.target.value)}
               value={email}
-              label="Email 
+              label="Email
             Address"
-              placeholder="Enter 
-            email"
             />
             <Social>
               <HorizontalWrapper>
@@ -111,7 +111,6 @@ const EditSchool = () => {
             </Social>
             <InputWithLabel
               label="School Address"
-              placeholder="Enter school address"
               onChange={(e) => setAddress(e.target.value)}
               value={address}
             />
@@ -120,7 +119,6 @@ const EditSchool = () => {
               type="number"
               onChange={(e) => setPhone(e.target.value)}
               value={phone}
-              placeholder="Enter phone Number"
             />
             <SaveBtn disabled={loading} onClick={(e) => handleSubmit(e)}>
               {loading ? "Updating ..." : "Save Updates"}
@@ -177,9 +175,14 @@ const ContentWrapper = styled.div`
 
 const EditWrapper = styled.div`
   width: 100%;
-  height: 100% !important;
+  height: 100vh;
+  overflow-y: scroll;
   display: flex;
   margin-left: 52px;
+  margin-bottom: 20px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   margin-right: 88px;
   flex-direction: column;
 `;
@@ -315,12 +318,14 @@ const SchoolLogo = styled.img`
   margin-top: 12px;
   border: 4px solid #fff;
   cursor: pointer;
+  object-fit: cover;
 `;
-const Banner = styled.div`
+const Banner = styled.img`
   background: #f7f8f9;
   border-radius: 10px;
   margin-top: 12px;
   width: 200px;
   height: 200px;
+  object-fit: cover;
 `;
 export default EditSchool;

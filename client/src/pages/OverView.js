@@ -14,7 +14,7 @@ const OverView = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (!userInfo?.userInfo?.user) {
+    if (!userInfo?.userInfo?.school) {
       navigate("/landing_page");
     }
     // eslint-disable-next-line
@@ -39,7 +39,7 @@ const OverView = () => {
       <OverViewWrapper>
         <Navbar />
         <Greeting>
-          Hey there {userInfo?.userInfo?.user?.username} <Emoji>👋</Emoji>
+          Hey there {userInfo?.userInfo?.school?.school_name} <Emoji>👋</Emoji>
         </Greeting>
         <HorizontalWrapper>
           <Subtitle>Here's an overview of your school</Subtitle>

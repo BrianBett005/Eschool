@@ -45,7 +45,7 @@ export const signup =
     });
     try {
       const { data } = await axios.post(
-        "https://edet-school.herokuapp.com/api/v1/schools/register",
+        "https://edet-school.herokuapp.com/api/v1/schools",
         {
           email,
           phone,

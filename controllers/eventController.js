@@ -1,5 +1,6 @@
 const Event = require("../models/Event");
 const CustomError = require("../errors");
+const cloudinary = require("../services/cloudinary");
 const createEvent = async (req, res) => {
   req.body.school = req.school.school_id;
   if (req.body.event_image) {

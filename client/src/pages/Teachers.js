@@ -22,7 +22,7 @@ const Teachers = () => {
   ];
 
   const navigate = useNavigate();
-  if (!userInfo?.userInfo?.user) {
+  if (!userInfo?.userInfo?.school) {
     navigate("/landing_page");
   }
   return (
