@@ -40,6 +40,7 @@ export const updateSchool = (updates) => async (dispatch, getState) => {
       }
     );
     dispatch({ type: UPDATE_SCHOOL_SUCCESS, payload: data });
+     localStorage.setItem("eSchooluserDetails", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: UPDATE_SCHOOL_FAIL,

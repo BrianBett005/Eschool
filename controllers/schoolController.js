@@ -89,10 +89,6 @@ const getAllSchools = async (req, res) => {
 };
 
 const updateSchool = async (req, res) => {
-  const schoolToUpdate = await School.findById(req.school.school_id);
-  if (!schoolToUpdate) {
-    throw new CustomError.NotFoundError("The requested school was not found");
-  }
   if (req.body.logo) {
     const result = await cloudinary.uploader.upload(req.body.logo, {
       folder: "School",
@@ -107,12 +103,16 @@ const updateSchool = async (req, res) => {
     const image = { public_id: result.public_id, url: result.secure_url };
     req.body.banner = image;
   }
-  authorizeUser(req.school, schoolToUpdate.school_name);
-  await schoolToUpdate.updateOne(req.body, {
-    runValidators: true,
-    new: true,
-  });
-  schoolToUpdate.save();
+
+  const schoolToUpdate = await School.findByIdAndUpdate(
+    req.school.school_id,
+    req.body,
+    {
+      runValidators: true,
+      new: true,
+    }
+  );
+
   const schoolToken = schoolTokenPayload(schoolToUpdate);
   const token = createJWT({ payload: schoolToken });
 
