@@ -27,7 +27,7 @@ const Login = () => {
   }, [error]);
   useEffect(() => {
     if (!isMount) {
-      if (userInfo) {
+      if (userInfo.user) {
         navigate("/");
       }
     }
