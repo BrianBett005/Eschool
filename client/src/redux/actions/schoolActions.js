@@ -11,7 +11,9 @@ import {
 export const getAllSchools = () => async (dispatch) => {
   dispatch({ type: GET_ALL_SCHOOLS_REQUEST });
   try {
-    const { data } = await axios.get("/schools");
+    const { data } = await axios.get(
+      "https://edet-school.herokuapp.com/api/v1/schools"
+    );
     dispatch({ type: GET_ALL_SCHOOLS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -29,7 +31,7 @@ export const updateSchool = (updates) => async (dispatch, getState) => {
     const token = getState()?.signInInfo?.userInfo?.token;
 
     const { data } = await axios.put(
-      "/schools/school",
+      "https://edet-school.herokuapp.com/api/v1/schools/school",
       updates,
       {
         headers: {

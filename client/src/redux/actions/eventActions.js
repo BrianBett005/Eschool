@@ -12,7 +12,7 @@ export const getMyEvents = () => async (dispatch, getState) => {
   try {
     const token = getState()?.signInInfo?.userInfo?.token;
     const { data } = await axios.get(
-      "http://localhost:5000/api/v1/events/school",
+      "https://edet-school.herokuapp.com/api/v1/events/school",
       {
         headers: {
           authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ export const createEvent = (event) => async (dispatch, getState) => {
   try {
     const token = getState()?.signInInfo?.userInfo?.token;
     const { data } = await axios.post(
-      "http://localhost:5000/api/v1/events",
+      "https://edet-school.herokuapp.com/api/v1/events",
       event,
       {
         headers: {

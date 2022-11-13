@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
@@ -13,9 +13,13 @@ const OverView = () => {
   const userInfo = useSelector((state) => state.signInInfo);
 
   const navigate = useNavigate();
-  if (!userInfo?.userInfo) {
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (!userInfo?.userInfo) {
+      navigate("/login");
+    }
+    // eslint-disable-next-line
+  }, []);
+
   // const users = useSelector((state) => state.users);
 
   // const dispatch = useDispatch();
