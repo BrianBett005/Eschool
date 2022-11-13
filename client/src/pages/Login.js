@@ -27,12 +27,12 @@ const Login = () => {
   }, [error]);
   useEffect(() => {
     if (!isMount) {
-      if (userInfo.user) {
+      if (userInfo?.school) {
         navigate("/");
       }
     }
     // eslint-disable-next-line
-  }, [userInfo]);
+  }, [userInfo.school]);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const signinUser = (e) => {
