@@ -57,7 +57,6 @@ app.use("/api/v1/notes", notesRouter);
 app.use("/api/v1/events", eventsRouter);
 app.use("/api/v1/gallery", galleryRouter);
 app.use("/api/v1/posts", postsRouter);
-app.use("/api/v1/posts", postsRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/comments", commentsRouter);
 
