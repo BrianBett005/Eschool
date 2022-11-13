@@ -18,6 +18,7 @@ import Events from "./pages/Events";
 import OverView from "./pages/OverView";
 import Management from "./pages/Management";
 import Logout from "./pages/Logout";
+import SingleEvent from "./pages/SingleEvent";
 function App() {
   return (
     <Router>
@@ -35,6 +36,7 @@ function App() {
         <Route path="/management" element={<Management />} />
         <Route path="/create_event" element={<CreateEvent />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/events/:id" element={<SingleEvent />} />
         <Route path="/logout" element={<Logout />} />
       </Routes>
     </Router>

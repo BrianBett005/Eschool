@@ -11,7 +11,7 @@ const Event = ({
   return (
     <Wrapper>
       <Name>
-        <EventImage>{title.substring(0, 1)}</EventImage>
+        <EventImage src={event_image?.url} />
         <h1>{title}</h1>
       </Name>
       <Category>{category}</Category>
@@ -41,7 +41,7 @@ const Wrapper = styled.div`
   border-radius: 10px;
   align-items: center;
 `;
-const EventImage = styled.div`
+const EventImage = styled.img`
   width: 50px;
   flex: 0 0 auto;
   height: 50px;
@@ -50,6 +50,7 @@ const EventImage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  object-fit: cover;
   margin-right: 20px;
 `;
 const Name = styled.div`

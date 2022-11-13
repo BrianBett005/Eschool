@@ -50,7 +50,6 @@ const EditSchool = () => {
     // eslint-disable-next-line
   }, [error]);
   const navigate = useNavigate();
-
   useEffect(() => {
     if (!isMount) {
       if (school) {

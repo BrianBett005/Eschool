@@ -73,7 +73,7 @@ const Events = () => {
               <h1>No events to show! Events created will appear here</h1>
             ) : (
               events?.map((event) => {
-                return <Event key={event._id} {...event} />;
+                return <Link to={`/events/${event._id}`}><Event key={event._id} {...event} /></Link>
               })
             )}
           </EventsList>

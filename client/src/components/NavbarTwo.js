@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { pageLinks } from "../data/pageLinks";
 import BlueButton from "./BlueButton";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const NavbarTwo = () => {
+  const userInfo = useSelector((state) => state.signInInfo?.userInfo);
   return (
     <Wrapper>
       <Logo src={school_logo} alt="Logo" />
@@ -13,8 +15,8 @@ const NavbarTwo = () => {
           <PageLink key={pageLink.id}>{pageLink.name}</PageLink>
         ))}
       </Links>
-      <Link to="/register">
-        <BlueButton title="Add your school" />
+      <Link to={userInfo.school ? "/logout" : "/register"}>
+        <BlueButton title={userInfo.school ? "Logout" : "Add your school"} />
       </Link>
     </Wrapper>
   );

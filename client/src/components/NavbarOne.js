@@ -2,7 +2,10 @@ import React from "react";
 import { MdLanguage, MdKeyboardArrowDown } from "react-icons/md";
 import { BsPersonCircle } from "react-icons/bs";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const NavbarOne = () => {
+  const userInfo = useSelector((state) => state.signInInfo?.userInfo);
   return (
     <Wrapper>
       <Content>
@@ -13,17 +16,20 @@ const NavbarOne = () => {
           </div>
           <h2>English</h2>
         </Language>
-        <User>
-          <div className="icon_wrapper">
-            <div className="icon">
+        <Link to={userInfo?.school ? "/logout" : "/login"}>
+          <User>
+            <div className="icon_wrapper">
+              {/* <div className="icon"> */}
               <BsPersonCircle />
+              {/* </div> */}
             </div>
-          </div>
-          <h1>Login</h1>
-          <div className="carousel">
-            <MdKeyboardArrowDown />
-          </div>
-        </User>
+
+            <h1>{userInfo?.school ? userInfo?.school.school_name : "Login"}</h1>
+            <div className="carousel">
+              <MdKeyboardArrowDown />
+            </div>
+          </User>
+        </Link>
       </Content>
     </Wrapper>
   );
@@ -102,16 +108,12 @@ const User = styled.div`
   .icon_wrapper {
     width: 25px;
     height: 25px;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-right: 4px;
     border-radius: 50%;
     background: #ffffff;
-    &.icon {
-      width: 17px;
-      height: 17px;
-      color: #000;
-    }
   }
   .carousel {
     color: white;

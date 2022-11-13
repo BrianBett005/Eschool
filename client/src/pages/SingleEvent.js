@@ -6,13 +6,13 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import NavbarOne from "../components/NavbarOne";
 import NavbarTwo from "../components/NavbarTwo";
-const SingleBlog = () => {
+const SingleEvent = () => {
   const location = useLocation();
   const blogId = location.pathname.split("/")[2];
 
-  const { blogs } = useSelector((state) => state.blogs);
+  const { events } = useSelector((state) => state.events);
 
-  const blog = blogs?.find((blog) => blog._id === blogId);
+  const event = events?.find((event) => event._id === blogId);
 
   return (
     <Wrapper>
@@ -21,25 +21,26 @@ const SingleBlog = () => {
         <NavbarTwo />
       </Navbars>
       <ContentWrapper>
-        <Image src={blog.image?.url} />
+        <Image src={event.event_image?.url} />
         <Time>
-          <h1>{new Date(blog.createdAt).toDateString()}</h1>
+          <h2>Event date</h2>
           <div></div>
-          <h2>6 min read</h2>
+
+          <h1>{new Date(event.event_date).toDateString()}</h1>
         </Time>
-        <Title>{blog.title}</Title>
+        <Title>{event.title}</Title>
         <HorizontalWrapper>
           <Left>
             <Profile>
-              <ProfilePic src={blog.author?.profilePic?.url} />
+              <ProfilePic src={event.school?.logo?.url} />
               <div>
-                <Author>{blog.author?.username}</Author>
-                <AuthorTitle>{blog.author?.title}</AuthorTitle>
+                <Author>{event.school?.school_name}</Author>
+                <AuthorTitle>{event.school?.email}</AuthorTitle>
               </div>
             </Profile>
             <Category></Category>
             <Categories>
-              <Category1>{blog.category}</Category1>
+              <Category1>{event.category}</Category1>
               <Category2>Consult</Category2>
             </Categories>
             <Title2>Share this article</Title2>
@@ -55,7 +56,7 @@ const SingleBlog = () => {
               </Social>
             </Socials>
           </Left>
-          <Description>{blog.content}</Description>
+          <Description>{event.description}</Description>
         </HorizontalWrapper>
         <Footer />
       </ContentWrapper>
@@ -262,4 +263,4 @@ const Social = styled.div`
   margin-right: 20px;
   place-items: center;
 `;
-export default SingleBlog;
+export default SingleEvent;

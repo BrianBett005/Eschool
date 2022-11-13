@@ -7,6 +7,7 @@ import {
   UPDATE_SCHOOL_REQUEST,
   UPDATE_SCHOOL_SUCCESS,
 } from "../constants/schoolConstants";
+import { USER_SIGNIN_SUCCESS } from "../constants/userConstants";
 
 export const getAllSchools = () => async (dispatch) => {
   dispatch({ type: GET_ALL_SCHOOLS_REQUEST });
@@ -40,7 +41,8 @@ export const updateSchool = (updates) => async (dispatch, getState) => {
       }
     );
     dispatch({ type: UPDATE_SCHOOL_SUCCESS, payload: data });
-     localStorage.setItem("eSchooluserDetails", JSON.stringify(data));
+    dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
+    localStorage.setItem("eSchooluserDetails", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: UPDATE_SCHOOL_FAIL,
