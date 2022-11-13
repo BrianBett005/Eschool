@@ -9,11 +9,11 @@ import {
 } from "../constants/schoolConstants";
 import { USER_SIGNIN_SUCCESS } from "../constants/userConstants";
 
-export const getAllSchools = () => async (dispatch) => {
+export const getAllSchools = () => async (dispatch, getState) => {
   dispatch({ type: GET_ALL_SCHOOLS_REQUEST });
   try {
     const { data } = await axios.get(
-      "https://edet-school.herokuapp.com/api/v1/schools"
+      "https://edet-school.herokuapp.com/api/v1/schools/all"
     );
     dispatch({ type: GET_ALL_SCHOOLS_SUCCESS, payload: data });
   } catch (error) {

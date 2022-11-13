@@ -7,6 +7,7 @@ const {
   updateSchool,
   deleteSchool,
   loginSchool,
+  adminGetAllSchools,
 } = require("../controllers/schoolController");
 const {
   authenticateUser,
@@ -16,14 +17,15 @@ const {
 const router = express.Router();
 
 router.route("/").post(createSchool).get(getAllSchools);
-
 router
-  .route("/school/:school_id")
-  .get(authenticateUser, getSchool)
- router
-   .route("/school")
-   .put(authenticateUser, updateSchool)
-   .delete(authenticateUser, deleteSchool);
+  .route("/all")
+  .get([authenticateAdmin, authorizePermissions("admin")], adminGetAllSchools);
+
+router.route("/school/:school_id").get(authenticateUser, getSchool);
+router
+  .route("/school")
+  .put(authenticateUser, updateSchool)
+  .delete(authenticateUser, deleteSchool);
 
 router.route("/search").get(searchSchool);
 router.route("/login").post(loginSchool);

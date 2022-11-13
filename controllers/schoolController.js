@@ -88,6 +88,10 @@ const getAllSchools = async (req, res) => {
   res.status(200).json(schools);
 };
 
+const adminGetAllSchools=async(req,res)=>{
+   const schools = await School.find({});
+  res.status(200).json(schools);
+}
 const updateSchool = async (req, res) => {
   if (req.body.logo) {
     const result = await cloudinary.uploader.upload(req.body.logo, {
@@ -138,4 +142,5 @@ module.exports = {
   updateSchool,
   loginSchool,
   deleteSchool,
+  adminGetAllSchools
 };
