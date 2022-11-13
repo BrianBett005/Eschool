@@ -22,8 +22,8 @@ const Teachers = () => {
   ];
 
   const navigate = useNavigate();
-  if (!userInfo?.userInfo) {
-    navigate("/login");
+  if (!userInfo?.userInfo?.user) {
+    navigate("/landing_page");
   }
   return (
     <Wrapper>
