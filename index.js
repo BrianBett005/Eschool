@@ -22,10 +22,10 @@ const galleryRouter = require("./routes/Gallery");
 const postsRouter = require("./routes/Post");
 const adminRouter = require("./routes/Admin");
 const commentsRouter = require("./routes/Comments");
+const paystackRouter = require("./routes/paystackRoutes");
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
-  
 }
 const fileupload = require("express-fileupload");
 
@@ -60,6 +60,7 @@ app.use("/api/v1/gallery", galleryRouter);
 app.use("/api/v1/posts", postsRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/comments", commentsRouter);
+app.use("/api/v1/payment", paystackRouter);
 
 // error middlewares
 app.use(errorHandlerMiddleware);

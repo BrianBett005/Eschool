@@ -15,7 +15,6 @@ const createUser = async (req, res) => {
     const emailAlreadyExists = await Admin.findOne({
       email: req.body.email,
     });
-
     if (emailAlreadyExists) {
       throw new CustomError.BadRequestError("Email address already exists");
     }
