@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import InfoModal from "./InfoModal";
 const SingleManagement = ({ name, email, createdAt, id }) => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <Wrapper>
       <Name>
@@ -10,7 +12,12 @@ const SingleManagement = ({ name, email, createdAt, id }) => {
       <Email>{email}</Email>
       <ManagerId> {id}</ManagerId>
       <DateJoined>{new Date(createdAt).toDateString()}</DateJoined>
-      <ViewInfo>View Info</ViewInfo>
+      <ShowInfo>
+        <ViewInfo onClick={() => setShowModal(true)}>View Info</ViewInfo>
+        <InfoModal2 visible={showModal} onCl>
+          <InfoModal setShowModal={setShowModal} />
+        </InfoModal2>
+      </ShowInfo>
     </Wrapper>
   );
 };
@@ -42,6 +49,19 @@ const ProfilePic = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 20px;
+`;
+const ShowInfo = styled.div`
+  position: relative;
+  z-index: 19;
+`;
+
+const InfoModal2 = styled.div`
+  position: absolute;
+  visibility: none;
+  z-index: 1000;
+  left: -200px;
+  top: -50px;
+  display: ${(props) => (props.visible === true ? "block" : "none")};
 `;
 const Name = styled.div`
   display: flex;
@@ -106,6 +126,7 @@ const ViewInfo = styled.button`
   font-family: "Dm Serif Display";
   font-size: 14px;
   border: none;
+  z-index: 1;
   cursor: pointer;
   transition: all 0.6s linear;
   width: fit-content;
