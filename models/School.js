@@ -29,6 +29,10 @@ const SchoolSchema = new Schema(
     motto: {
       type: String,
     },
+    is_featured: {
+      type: Boolean,
+      default: false,
+    },
     phone: {
       type: Number,
       unique: [true, "This phone number already exists"],

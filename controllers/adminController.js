@@ -63,7 +63,7 @@ const updateUser = async (req, res) => {
 
 const login = async (req, res) => {
   let user;
-  if (req.body.email != null) {
+  if (req.body.email === null) {
     const phone = req.body.phone;
     user = await Admin.findOne({ phone }).select("+password");
   } else {
