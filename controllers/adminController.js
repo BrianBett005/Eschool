@@ -5,7 +5,7 @@ const CustomError = require("../errors");
 const cloudinary = require("../services/cloudinary");
 
 const createUser = async (req, res) => {
-  if (req.body.phone != null) {
+  if (req.body.phone !== null) {
     const { phone } = req.body;
     const numberAlreadyExists = await Admin.findOne({ phone });
     if (numberAlreadyExists) {
