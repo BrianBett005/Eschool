@@ -19,6 +19,7 @@ import OverView from "./pages/OverView";
 import Management from "./pages/Management";
 import Logout from "./pages/Logout";
 import SingleEvent from "./pages/SingleEvent";
+import Payment from "./pages/Payment";
 function App() {
   return (
     <Router>
@@ -38,6 +39,7 @@ function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/events/:id" element={<SingleEvent />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </Router>
   );

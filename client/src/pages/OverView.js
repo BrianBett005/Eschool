@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import GreenButton from "../components/GreenButton";
 
@@ -38,12 +38,16 @@ const OverView = () => {
       </TabsWrapper>
       <OverViewWrapper>
         <Navbar />
+
         <Greeting>
           Hey there {userInfo?.userInfo?.school?.school_name} <Emoji>👋</Emoji>
         </Greeting>
         <HorizontalWrapper>
           <Subtitle>Here's an overview of your school</Subtitle>
           <GreenButton title="View comprehensive list" />
+          <Link to="/payment">
+            <GreenButton title="Make Payment" />
+          </Link>
         </HorizontalWrapper>
 
         <Cards>

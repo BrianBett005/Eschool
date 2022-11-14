@@ -2,6 +2,7 @@ import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
 import { createEventReducer, getMyEventsReducer } from "./reducers/eventReducers";
+import { initializePaymentReducer } from "./reducers/paymentReducers";
 import { updateSchoolReducer } from "./reducers/schoolReducers";
 // import { getAllSchoolsReducer } from "./reducers/schoolReducers";
 import { userSigninReducer, userSignUpReducer } from "./reducers/userReducers";
@@ -11,7 +12,7 @@ const reducers = combineReducers({
   signup: userSignUpReducer,
   updateSchool: updateSchoolReducer,
   events:getMyEventsReducer,
-  event:createEventReducer
+  event:createEventReducer,payment:initializePaymentReducer
   
 });
 const initialState = {
