@@ -1,8 +1,12 @@
+// const request = require("request");
+const https = require("https");
+
 const initializePayment = (form, mycallback) => {
+  const MySecretKey = `Bearer ${process.env.MY_SECRET}`;
   const options = {
     url: "https://api.paystack.co/transaction/initialize",
     headers: {
-      authorization: MySecretKey,
+      Authorization: MySecretKey,
       "content-type": "application/json",
       "cache-control": "no-cache",
     },
@@ -11,7 +15,9 @@ const initializePayment = (form, mycallback) => {
   const callback = (error, response, body) => {
     return mycallback(error, body);
   };
-  request.post(options, callback);
+  const req = https.request(options, callback);
+  req.write(form);
+  req.end();
 };
 
 const verifyPayment = (ref, mycallback) => {

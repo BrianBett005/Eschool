@@ -13,10 +13,10 @@ const PaymentSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  // paymentType: {
-  //   type: String,
-  //   required: true,
-  // },
+  paymentType: {
+    type: String,
+    required: true,
+  },
   status: {
     type: String,
     enum: ["success", "failed"],
