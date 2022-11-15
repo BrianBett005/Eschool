@@ -15,8 +15,8 @@ const NavbarTwo = () => {
           <PageLink key={pageLink.id}>{pageLink.name}</PageLink>
         ))}
       </Links>
-      <Link to={userInfo.school ? "/logout" : "/register"}>
-        <BlueButton title={userInfo.school ? "Logout" : "Add your school"} />
+      <Link to={userInfo?.school ? "/logout" : "/register"}>
+        <BlueButton title={userInfo?.school ? "Logout" : "Add your school"} />
       </Link>
     </Wrapper>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import InputWithLabel from "../components/InputWithLabel";
@@ -36,6 +36,7 @@ const Payment = () => {
     if (!isMount) {
       if (url) {
         // navigate(url);
+        window.location = url;
       }
     }
     // eslint-disable-next-line

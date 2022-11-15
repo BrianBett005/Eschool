@@ -1,8 +1,8 @@
 // const request = require("request");
 const https = require("https");
-
+const { Payment } = require("../models/Payment");
+const MySecretKey = `Bearer ${process.env.MY_SECRET}`;
 const initializePayment = (form, res) => {
-  const MySecretKey = `Bearer ${process.env.MY_SECRET}`;
   const options = {
     hostname: "api.paystack.co",
     port: 443,
@@ -26,8 +26,7 @@ const initializePayment = (form, res) => {
       response.on("end", () => {
         console.log(JSON.parse(data));
         const parsedData = JSON.parse(data);
-        console.log(parsedData.data.authorization_url);
-        res.redirect(parsedData.data.authorization_url);
+        res.send(parsedData.data.authorization_url);
       });
     })
     .on("error", (error) => {
@@ -38,20 +37,47 @@ const initializePayment = (form, res) => {
   req.end();
 };
 
-const verifyPayment = (ref, mycallback) => {
+const verifyPayment = (ref, res) => {
+  const https = require("https");
   const options = {
-    url:
-      "https://api.paystack.co/transaction/verify/" + encodeURIComponent(ref),
+    hostname: "api.paystack.co",
+    port: 443,
+    path: "/transaction/verify/:reference",
+    method: "GET",
     headers: {
-      authorization: MySecretKey,
-      "content-type": "application/json",
-      "cache-control": "no-cache",
+      Authorization: `Bearer ${MySecretKey}`,
     },
   };
-  const callback = (error, response, body) => {
-    return mycallback(error, body);
-  };
-  request(options, callback);
+
+  https
+    .request(options, (response) => {
+      let data = "";
+
+      response.on("data", (chunk) => {
+        data += chunk;
+      });
+
+      response.on("end", () => {
+        const parsedData = Json.parse(data);
+        const { reference, amount, email, full_name, channel } =
+          parsedData?.data;
+        Payment.create({
+          name: full_name,
+          paymentType: channel,
+          email,
+          amount,
+          reference,
+        }).then((payment) => {
+          if (payment) {
+            window.alert("Payment was successful");
+          }
+        });
+      });
+    })
+    .on("error", (error) => {
+      console.error(error);
+      res.status(500).json(error);
+    });
 };
 
 module.exports = { initializePayment, verifyPayment };

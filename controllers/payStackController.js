@@ -8,7 +8,7 @@ const initializePayStack = async (req, res) => {
 
   amount *= 100;
   form = JSON.stringify({
-    email: "bettbrian316@gmail.com",
+    email: email,
     amount: amount,
     currency: "NGN",
   });
@@ -20,25 +20,8 @@ const initializePayStack = async (req, res) => {
 };
 
 const verify = async (req, res) => {
-  const ref = req.query.reference;
-  verifyPayment(ref, (error, body) => {
-    if (error) {
-      throw new CustomError.BadRequestError(error);
-    }
-    const response = JSON.parse(body);
-    const { reference, amount, email, full_name, channel } = response.data;
-    Payment.create({
-      name: full_name,
-      paymentType: channel,
-      email,
-      amount,
-      reference,
-    }).then((payment) => {
-      if (payment) {
-        res.redirect("/");
-      }
-    });
-  });
+  
+  verifyPayment(res);
 };
 
 module.exports = { initializePayStack, verify };
