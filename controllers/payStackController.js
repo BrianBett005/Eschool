@@ -4,23 +4,24 @@ const { initializePayment } = require("../utils/paystack");
 
 const initializePayStack = async (req, res) => {
   let { email, full_name, amount } = req.body;
+  console.log(req.body);
   let form = {};
 
   amount *= 100;
   form = JSON.stringify({
-    email: email,
-    amount: amount,
+    email,
+    amount,
     currency: "NGN",
   });
   form.metadata = {
     full_name,
   };
 
+  console.log(form);
   initializePayment(form, res);
 };
 
 const verify = async (req, res) => {
-  
   verifyPayment(res);
 };
 

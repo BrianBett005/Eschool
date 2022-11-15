@@ -6,13 +6,13 @@ import {
 } from "../constants/paymentConstants";
 
 export const initializePayment =
-  (full_name, email, amount) => async (dispatch, getState) => {
+  (email, full_name, amount) => async (dispatch, getState) => {
     dispatch({ type: INITIALIZE_PAYMENT_REQUEST });
     try {
       const token = getState()?.signInInfo?.userInfo?.token;
       const { data } = await axios.post(
         "https://edet-school.herokuapp.com/api/v1/payment/init",
-        { full_name, email, amount },
+        { email, full_name, amount },
         {
           headers: {
             authorization: `Bearer ${token}`,
