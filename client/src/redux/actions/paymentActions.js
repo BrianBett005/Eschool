@@ -11,7 +11,7 @@ export const initializePayment =
     try {
       const token = getState()?.signInInfo?.userInfo?.token;
       const { data } = await axios.post(
-        "https://edet-school.herokuapp.com/api/v1/payment/init",
+        "http://localhost:5000/api/v1/payment/init",
         { full_name, email, amount },
         {
           headers: {

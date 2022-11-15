@@ -4,28 +4,19 @@ const { initializePayment } = require("../utils/paystack");
 
 const initializePayStack = async (req, res) => {
   let { email, full_name, amount } = req.body;
-
   let form = {};
 
   amount *= 100;
   form = JSON.stringify({
-    email: email,
+    email: "bettbrian316@gmail.com",
     amount: amount,
     currency: "NGN",
   });
-  // form.metadata = {
-  //   full_name,
-  // };
+  form.metadata = {
+    full_name,
+  };
 
-  initializePayment(form, (error, body) => {
-    if (error) {
-      throw new CustomError.BadRequestError(error);
-    } else {
-      const response = JSON.parse(body);
-      console.log(response);
-      res.redirect(response.data.authorization_url);
-    }
-  });
+  initializePayment(form, res);
 };
 
 const verify = async (req, res) => {

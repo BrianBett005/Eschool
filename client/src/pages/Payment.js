@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import InputWithLabel from "../components/InputWithLabel";
@@ -21,7 +21,8 @@ const Payment = () => {
   const [email, setEmail] = useState(userInfo.userInfo?.school?.email);
   const [full_name, setName] = useState(userInfo.userInfo?.school?.school_name);
   const amount = 200;
-  const { loading, error } = useSelector((state) => state.payment);
+  const { loading, error, url } = useSelector((state) => state.payment);
+
   useEffect(() => {
     if (!isMount) {
       if (error) {
@@ -30,6 +31,16 @@ const Payment = () => {
     }
     // eslint-disable-next-line
   }, [error]);
+
+  useEffect(() => {
+    if (!isMount) {
+      if (url) {
+        // navigate(url);
+      }
+    }
+    // eslint-disable-next-line
+  }, [url]);
+
   const initializePaystack = (e) => {
     e.preventDefault();
     if (!email || !full_name) {

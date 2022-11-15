@@ -1,7 +1,10 @@
 const { Router } = require("express");
-const { initializePayStack } = require("../controllers/payStackController");
+const {
+  initializePayStack,
+  verify,
+} = require("../controllers/payStackController");
 const router = Router();
 
 router.route("/init").post(initializePayStack);
-
+router.route("/verify").get(verify);
 module.exports = router;

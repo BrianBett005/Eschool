@@ -1,10 +1,13 @@
 // const request = require("request");
 const https = require("https");
 
-const initializePayment = (form, mycallback) => {
+const initializePayment = (form, res) => {
   const MySecretKey = `Bearer ${process.env.MY_SECRET}`;
   const options = {
-    url: "https://api.paystack.co/transaction/initialize",
+    hostname: "api.paystack.co",
+    port: 443,
+    path: "/transaction/initialize",
+    method: "POST",
     headers: {
       Authorization: MySecretKey,
       "content-type": "application/json",
@@ -12,10 +15,25 @@ const initializePayment = (form, mycallback) => {
     },
     form,
   };
-  const callback = (error, response, body) => {
-    return mycallback(error, body);
-  };
-  const req = https.request(options, callback);
+
+  const req = https
+    .request(options, (response) => {
+      let data = "";
+
+      response.on("data", (chunk) => {
+        data += chunk;
+      });
+      response.on("end", () => {
+        console.log(JSON.parse(data));
+        const parsedData = JSON.parse(data);
+        console.log(parsedData.data.authorization_url);
+        res.redirect(parsedData.data.authorization_url);
+      });
+    })
+    .on("error", (error) => {
+      console.error(error);
+      res.status(400).json(error);
+    });
   req.write(form);
   req.end();
 };
