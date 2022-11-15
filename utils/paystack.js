@@ -26,7 +26,7 @@ const initializePayment = (form, res) => {
       response.on("end", () => {
         console.log(JSON.parse(data));
         const parsedData = JSON.parse(data);
-        res.send(parsedData?.data?.authorization_url);
+        res.send(parsedData.data?.authorization_url);
       });
     })
     .on("error", (error) => {
