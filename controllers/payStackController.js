@@ -1,6 +1,6 @@
 const CustomError = require("../errors/CustomError");
 const Payment = require("../models/Payment");
-const { initializePayment } = require("../utils/paystack");
+const { initializePayment, verifyPayment } = require("../utils/paystack");
 
 const initializePayStack = async (req, res) => {
   let { email, full_name, amount } = req.body;
