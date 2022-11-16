@@ -37,7 +37,7 @@ const initializePayment = (form, res) => {
   req.end();
 };
 
-const verifyPayment = (ref, res) => {
+const verifyPayment = (res) => {
   const https = require("https");
   const options = {
     hostname: "api.paystack.co",
