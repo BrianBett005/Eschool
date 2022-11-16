@@ -20,7 +20,7 @@ const Payment = () => {
 
   const [email, setEmail] = useState(userInfo.userInfo?.school?.email);
   const [full_name, setName] = useState(userInfo.userInfo?.school?.school_name);
-  const amount = 200;
+  const amount = 20;
   const { loading, error, url } = useSelector((state) => state.payment);
 
   useEffect(() => {
