@@ -57,19 +57,20 @@ const verifyPayment = (res) => {
 
       response.on("end", () => {
         const parsedData = Json.parse(data);
-        const { reference, amount, customer, channel } = parsedData?.data;
-        const email = customer?.email;
-        Payment.create({
-          // name: full_name,
-          paymentType: channel,
-          email,
-          amount,
-          reference,
-        }).then((payment) => {
-          if (payment) {
-            window.alert("Payment was successful");
-          }
-        });
+        console.log(parsedData);
+        // const { reference, amount, customer, channel } = parsedData?.data;
+        // const email = customer?.email;
+        // Payment.create({
+        //   // name: full_name,
+        //   paymentType: channel,
+        //   email,
+        //   amount,
+        //   reference,
+        // }).then((payment) => {
+        //   if (payment) {
+        //     window.alert("Payment was successful");
+        //   }
+        // });
       });
     })
     .on("error", (error) => {
