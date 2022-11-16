@@ -38,7 +38,6 @@ const initializePayment = (form, res) => {
 };
 
 const verifyPayment = (res) => {
-  const https = require("https");
   const options = {
     hostname: "api.paystack.co",
     port: 443,
@@ -48,7 +47,6 @@ const verifyPayment = (res) => {
       Authorization: `Bearer ${MySecretKey}`,
     },
   };
-
   https
     .request(options, (response) => {
       let data = "";
@@ -59,10 +57,10 @@ const verifyPayment = (res) => {
 
       response.on("end", () => {
         const parsedData = Json.parse(data);
-        const { reference, amount, email, full_name, channel } =
-          parsedData?.data;
+        const { reference, amount, customer, channel } = parsedData?.data;
+        const email = customer?.email;
         Payment.create({
-          name: full_name,
+          // name: full_name,
           paymentType: channel,
           email,
           amount,
