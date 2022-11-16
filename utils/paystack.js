@@ -1,5 +1,6 @@
 // const request = require("request");
 
+const { response } = require("express");
 const https = require("https");
 const { Payment } = require("../models/Payment");
 const MySecretKey = `Bearer ${process.env.MY_SECRET}`;
@@ -103,6 +104,7 @@ const verifyPayment = (res) => {
     })
     .on("error", (error) => {
       console.error(error);
+      res.status(400).json(error);
     });
 };
 
