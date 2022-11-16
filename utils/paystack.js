@@ -1,4 +1,5 @@
 // const request = require("request");
+
 const https = require("https");
 const { Payment } = require("../models/Payment");
 const MySecretKey = `Bearer ${process.env.MY_SECRET}`;
@@ -88,15 +89,16 @@ const verifyPayment = (res) => {
   };
 
   https
-    .request(options, (res) => {
+    .request(options, (response) => {
       let data = "";
 
-      res.on("data", (chunk) => {
+      response.on("data", (chunk) => {
         data += chunk;
       });
 
-      res.on("end", () => {
+      response.on("end", () => {
         console.log(JSON.parse(data));
+        res.status(200).json("Successfull");
       });
     })
     .on("error", (error) => {
