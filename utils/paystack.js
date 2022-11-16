@@ -44,7 +44,7 @@ const verifyPayment = (res) => {
     path: "/transaction/verify/:reference",
     method: "GET",
     headers: {
-      Authorization: `Bearer ${MySecretKey}`,
+      Authorization: MySecretKey,
     },
   };
   https
