@@ -6,5 +6,5 @@ const {
 const router = Router();
 
 router.route("/init").post(initializePayStack);
-router.route("/verify").get(verify);
+router.route("/verify").post(verify);
 module.exports = router;

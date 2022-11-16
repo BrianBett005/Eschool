@@ -6,7 +6,6 @@ const initializePayStack = async (req, res) => {
   let { email, full_name, amount } = req.body;
   console.log(req.body);
   let form = {};
-
   amount *= 100;
   form = JSON.stringify({
     email,
