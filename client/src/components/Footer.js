@@ -75,19 +75,36 @@ const Footer = () => {
 const Wrapper = styled.div`
   width: 100vw;
   height: fit-content;
-  padding: 100px;
+
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  padding: 40px 0;
+  /* grid-template-columns: repeat(4, 1fr); */
+  @media screen and (min-width: 1300px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media screen and (max-width: 1300px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Title = styled.h1`
-  font-family: "DM Serif Display";
-  font-style: normal;
-  font-weight: 400;
+  font-family: "DM Sans";
+  font-style: bold;
+  font-weight: 700;
   font-size: 20px;
   line-height: 27px;
 
   margin-bottom: 24px;
+  @media screen and (max-width: 800px) {
+    margin-top: 20px;
+  }
   color: #141414;
 `;
 const Subtitle = styled.h2`
