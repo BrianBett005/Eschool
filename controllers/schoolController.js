@@ -88,10 +88,10 @@ const getAllSchools = async (req, res) => {
   res.status(200).json(schools);
 };
 
-const adminGetAllSchools=async(req,res)=>{
-   const schools = await School.find({});
+const adminGetAllSchools = async (req, res) => {
+  const schools = await School.find({});
   res.status(200).json(schools);
-}
+};
 const updateSchool = async (req, res) => {
   if (req.body.logo) {
     const result = await cloudinary.uploader.upload(req.body.logo, {
@@ -123,6 +123,18 @@ const updateSchool = async (req, res) => {
   res.status(200).json({ school: schoolToUpdate, token });
 };
 
+const adminUpdateSchool = async (req, res) => {
+  const schoolToUpdate = await School.findByIdAndUpdate(
+    req.params.school_id,
+    req.body,
+    {
+      runValidators: true,
+      new: true,
+    }
+  );
+  res.status(200).json(schoolToUpdate);
+};
+
 const deleteSchool = async (req, res) => {
   const schoolToDelete = await School.findById(req.school.school_id);
   if (!schoolToDelete) {
@@ -134,6 +146,11 @@ const deleteSchool = async (req, res) => {
   res.status(200).json("School deleted successfully");
 };
 
+const getFeaturedSchools = async (req, res) => {
+  const featured = await School.find({ is_featured: true });
+  res.status(200).json(featured);
+};
+
 module.exports = {
   createSchool,
   getSchool,
@@ -142,5 +159,7 @@ module.exports = {
   updateSchool,
   loginSchool,
   deleteSchool,
-  adminGetAllSchools
+  adminGetAllSchools,
+  adminUpdateSchool,
+  getFeaturedSchools,
 };

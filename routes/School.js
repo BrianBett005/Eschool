@@ -8,6 +8,8 @@ const {
   deleteSchool,
   loginSchool,
   adminGetAllSchools,
+  adminUpdateSchool,
+  getFeaturedSchools,
 } = require("../controllers/schoolController");
 const {
   authenticateUser,
@@ -21,12 +23,16 @@ router
   .route("/all")
   .get([authenticateAdmin, authorizePermissions("admin")], adminGetAllSchools);
 
-router.route("/school/:school_id").get(authenticateUser, getSchool);
+router
+  .route("/school/:school_id")
+  .get(authenticateUser, getSchool)
+  .put([authenticateAdmin, authorizePermissions("admin")], adminUpdateSchool);
 router
   .route("/school")
   .put(authenticateUser, updateSchool)
   .delete(authenticateUser, deleteSchool);
 
 router.route("/search").get(searchSchool);
+router.route("/featured").get(getFeaturedSchools);
 router.route("/login").post(loginSchool);
 module.exports = router;
