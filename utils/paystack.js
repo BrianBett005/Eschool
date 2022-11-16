@@ -38,6 +38,45 @@ const initializePayment = (form, res) => {
 };
 
 const verifyPayment = (res) => {
+  // const options = {
+  //   hostname: "api.paystack.co",
+  //   port: 443,
+  //   path: "/transaction/verify/:reference",
+  //   method: "GET",
+  //   headers: {
+  //     Authorization: MySecretKey,
+  //   },
+  // };
+  // https
+  //   .request(options, (response) => {
+  //     let data = "";
+
+  //     response.on("data", (chunk) => {
+  //       data += chunk;
+  //     });
+
+  //     response.on("end", () => {
+  //       const parsedData = Json.parse(data);
+  //       console.log(parsedData);
+  // const { reference, amount, customer, channel } = parsedData?.data;
+  // const email = customer?.email;
+  // Payment.create({
+  //   // name: full_name,
+  //   paymentType: channel,
+  //   email,
+  //   amount,
+  //   reference,
+  // }).then((payment) => {
+  //   if (payment) {
+  //     window.alert("Payment was successful");
+  //   }
+  // });
+  //   });
+  // })
+  // .on("error", (error) => {
+  //   console.error(error);
+  //   res.status(400).json(error);
+  // });
   const options = {
     hostname: "api.paystack.co",
     port: 443,
@@ -47,35 +86,21 @@ const verifyPayment = (res) => {
       Authorization: MySecretKey,
     },
   };
+
   https
-    .request(options, (response) => {
+    .request(options, (res) => {
       let data = "";
 
-      response.on("data", (chunk) => {
+      res.on("data", (chunk) => {
         data += chunk;
       });
 
-      response.on("end", () => {
-        const parsedData = Json.parse(data);
-        console.log(parsedData);
-        // const { reference, amount, customer, channel } = parsedData?.data;
-        // const email = customer?.email;
-        // Payment.create({
-        //   // name: full_name,
-        //   paymentType: channel,
-        //   email,
-        //   amount,
-        //   reference,
-        // }).then((payment) => {
-        //   if (payment) {
-        //     window.alert("Payment was successful");
-        //   }
-        // });
+      res.on("end", () => {
+        console.log(JSON.parse(data));
       });
     })
     .on("error", (error) => {
       console.error(error);
-      res.status(500).json(error);
     });
 };
 
