@@ -5,6 +5,9 @@ import {
   GET_ALL_SCHOOLS_FAIL,
   GET_ALL_SCHOOLS_REQUEST,
   GET_ALL_SCHOOLS_SUCCESS,
+  SEARCH_SCHOOLS_FAIL,
+  SEARCH_SCHOOLS_REQUEST,
+  SEARCH_SCHOOLS_SUCCESS,
   UPDATE_SCHOOL_FAIL,
   UPDATE_SCHOOL_REQUEST,
   UPDATE_SCHOOL_SUCCESS,
@@ -17,6 +20,19 @@ export const getAllSchoolsReducer = (state = {}, action) => {
     case GET_ALL_SCHOOLS_SUCCESS:
       return { ...state, loading: false, schools: action.payload };
     case GET_ALL_SCHOOLS_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const searchSchoolsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SEARCH_SCHOOLS_REQUEST :
+  return { ...state, loading: true };
+    case SEARCH_SCHOOLS_SUCCESS:
+      return { ...state, loading: false, schools: action.payload };
+    case SEARCH_SCHOOLS_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
       return state;

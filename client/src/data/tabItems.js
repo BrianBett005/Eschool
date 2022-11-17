@@ -27,13 +27,13 @@ export const tabItems = [
     url: "/events",
     title: "Events",
     icon: <BsPersonCircle />,
-    id: 5,
+    id: 6,
   },
 
   {
     url: "/logout",
     title: "Logout",
     icon: <BiLogOut />,
-    id: 6,
+    id: 7,
   },
 ];

@@ -7,7 +7,7 @@ import BlueButton from "../components/BlueButton";
 import NavbarOne from "../components/NavbarOne";
 import { BsArrowRight } from "react-icons/bs";
 import NavbarTwo from "../components/NavbarTwo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import LandingSection2 from "../components/LandingSection2";
 import LandingSection3 from "../components/LandingSection3";
@@ -17,6 +17,15 @@ import FeaturedSchool from "../components/FeaturedSchool";
 import { useDispatch, useSelector } from "react-redux";
 import { getFeatured } from "../redux/actions/schoolActions";
 const LandingPage = () => {
+  const userInfo = useSelector((state) => state.signInInfo);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (userInfo?.userInfo?.school) {
+      navigate("/");
+    }
+    // eslint-disable-next-line
+  }, []);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getFeatured());
@@ -34,8 +43,8 @@ const LandingPage = () => {
           <Subtitle>WELCOME TO EDET Schools</Subtitle>
           <Title>Experience School Networks at its Peak</Title>
           <Buttons>
-            <Link to="/search">
-              <BlueButton title="Search schools" />
+            <Link to="/register">
+              <BlueButton title="Login or add school" />
             </Link>
             <Link to="/blog">
               <ReadBlog href="/blog">
@@ -46,6 +55,9 @@ const LandingPage = () => {
               </ReadBlog>
             </Link>
           </Buttons>
+          <Link to="/search">
+            <BlueButton title="Explore" />
+          </Link>
         </Left>
         <Right>
           <Images>
@@ -119,8 +131,8 @@ const FooterWrapper = styled.div`
 `;
 const ContentWrapper = styled.div`
   width: 100%;
-  height: 100%;
-  padding: 0 100px;
+
+  padding: 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;

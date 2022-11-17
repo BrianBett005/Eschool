@@ -39,7 +39,7 @@ const Icon = styled.div`
 const Content = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 15px 0;
+  padding: 22px 0;
   align-items: center;
   div {
     display: flex;

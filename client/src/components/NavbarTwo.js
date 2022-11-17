@@ -9,10 +9,14 @@ const NavbarTwo = () => {
   const userInfo = useSelector((state) => state.signInInfo?.userInfo);
   return (
     <Wrapper>
-      <Logo src={school_logo} alt="Logo" />
+      <Link to={userInfo?.school ? "/" : "/landing_page"}>
+        <Logo src={school_logo} alt="Logo" />
+      </Link>
       <Links>
         {pageLinks.map((pageLink) => (
-          <PageLink key={pageLink.id}>{pageLink.name}</PageLink>
+          <Link to={pageLink.url}>
+            <PageLink key={pageLink.id}>{pageLink.name}</PageLink>
+          </Link>
         ))}
       </Links>
       <Link to={userInfo?.school ? "/logout" : "/register"}>

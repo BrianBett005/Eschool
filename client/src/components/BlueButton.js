@@ -5,7 +5,7 @@ const BlueButton = ({ onClick, title }) => {
 };
 
 const Button = styled.button`
-  background: #3d3af8;
+  background: #010021;
   border-radius: 10px;
   padding: 14px 40px;
   cursor: pointer;
@@ -15,6 +15,7 @@ const Button = styled.button`
   font-weight: 500;
   font-size: 16px;
   line-height: 32px;
+  margin: 20px 0;
 
   text-align: center;
 

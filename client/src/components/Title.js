@@ -10,10 +10,10 @@ const Title = ({ title }) => {
 
 const Welcome = styled.div`
   font-family: "DM Serif Display";
-  font-style: normal;
+  font-style: bold;
   font-weight: 400;
   display: flex;
-  font-size: 24px;
+  font-size: 26px;
   line-height: 48px;
   text-align: center;
 

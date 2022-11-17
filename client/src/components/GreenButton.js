@@ -3,12 +3,14 @@ import styled from "styled-components";
 const GreenButton = ({ title }) => {
   return <Button>{title}</Button>;
 };
-const Button = styled.div`
+const Button = styled.button`
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 32px;
+  cursor: pointer;
 
+  border: none;
   font-family: "Dm Sans";
   background: #0e563f;
   border-radius: 10px;

@@ -1,16 +1,17 @@
 import axios from "axios";
+import { USER_SIGNIN_SUCCESS } from "../admin/constants/userConstants";
 import {
-  USER_SIGNIN_FAIL,
-  USER_SIGNIN_REQUEST,
-  USER_SIGNIN_SUCCESS,
-  USER_SIGNOUT,
-  USER_SIGNUP_REQUEST,
-  USER_SIGNUP_FAIL,
-  USER_SIGNUP_SUCCESS,
+  SCHOOL_SIGNOUT,
+  SCHOOL_SIGNIN_SUCCESS,
+  SCHOOL_SIGNUP_FAIL,
+  SCHOOL_SIGNUP_REQUEST,
+  SCHOOL_SIGNUP_SUCCESS,
+  SCHOOL_SIGNIN_FAIL,
+  SCHOOL_SIGNIN_REQUEST,
 } from "../constants/userConstants";
 
 export const signin = (email, password) => async (dispatch) => {
-  dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
+  dispatch({ type: SCHOOL_SIGNIN_REQUEST, payload: { email, password } });
   try {
     const { data } = await axios.post(
       "https://edet-school.herokuapp.com/api/v1/schools/login",
@@ -19,11 +20,15 @@ export const signin = (email, password) => async (dispatch) => {
         password,
       }
     );
-    dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
+    dispatch({ type: SCHOOL_SIGNIN_SUCCESS, payload: data });
+    dispatch({ type: USER_SIGNIN_SUCCESS, payload: null });
+
     localStorage.setItem("eSchooluserDetails", JSON.stringify(data));
+
+    localStorage.removeItem("eSchooladminDetails");
   } catch (error) {
     dispatch({
-      type: USER_SIGNIN_FAIL,
+      type: SCHOOL_SIGNIN_FAIL,
       payload:
         error.response && error.response.data.msg
           ? error.response.data.msg
@@ -34,7 +39,7 @@ export const signin = (email, password) => async (dispatch) => {
 export const signup =
   (password, email, phone, school_name) => async (dispatch) => {
     dispatch({
-      type: USER_SIGNUP_REQUEST,
+      type: SCHOOL_SIGNUP_REQUEST,
       payload: {
         email,
         phone,
@@ -53,12 +58,14 @@ export const signup =
           password,
         }
       );
-      dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
-      dispatch({ type: USER_SIGNUP_SUCCESS, payload: data });
+      dispatch({ type: SCHOOL_SIGNIN_SUCCESS, payload: data });
+      dispatch({ type: SCHOOL_SIGNUP_SUCCESS, payload: data });
       localStorage.setItem("eSchooluserDetails", JSON.stringify(data));
+      dispatch({ type: USER_SIGNIN_SUCCESS, payload: null });
+      localStorage.removeItem("eSchooladminDetails");
     } catch (error) {
       dispatch({
-        type: USER_SIGNUP_FAIL,
+        type: SCHOOL_SIGNUP_FAIL,
         payload:
           error.response && error.response.data.msg
             ? error.response.data.msg
@@ -70,6 +77,7 @@ export const signup =
 export const signout = () => async (dispatch) => {
   await axios.post("https://edet-school.herokuapp.com/api/v1/admin/logout");
   localStorage.removeItem("eSchooluserDetails");
+  dispatch({ type: SCHOOL_SIGNIN_SUCCESS, payload: null });
 
-  dispatch({ type: USER_SIGNOUT });
+  dispatch({ type: SCHOOL_SIGNOUT });
 };

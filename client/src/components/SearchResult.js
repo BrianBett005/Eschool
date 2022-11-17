@@ -1,7 +1,7 @@
 import React from "react";
 import { GrLocation } from "react-icons/gr";
 import styled from "styled-components";
-const SearchResult = () => {
+const SearchResult = ({ school_name, address }) => {
   return (
     <Wrapper>
       <Content>
@@ -10,8 +10,8 @@ const SearchResult = () => {
             <GrLocation />
           </Icon>
           <Texts>
-            <Title>Hammersmith Academy</Title>
-            <Subtitle>Block 3 Amazukwu Road, Umuahia North, Abia.</Subtitle>
+            <Title>{school_name}</Title>
+            <Subtitle>{address}</Subtitle>
           </Texts>
         </div>
         <Location>
@@ -62,7 +62,7 @@ const Subtitle = styled.h2`
   font-weight: 400;
   font-size: 14px;
   line-height: 30px;
-
+  align-self: flex-start;
   text-transform: capitalize;
 
   color: #6a6a72;

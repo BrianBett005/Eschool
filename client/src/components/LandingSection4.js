@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import styled from "styled-components";
 const LandingSection4 = () => {
   return (
@@ -9,9 +9,9 @@ const LandingSection4 = () => {
         Don't miss out on health updates! Dont worry we will not spam you.
       </Subtitle>
       <InputWrapper>
-        <Link to="/search">
-          <SubscribeBtn>Get started</SubscribeBtn>
-        </Link>
+        {/* <Link to="/"> */}
+        <SubscribeBtn>Subscribe</SubscribeBtn>
+        {/* </Link> */}
         <Input placeholder="Enter your email address" />
       </InputWrapper>
     </Wrapper>

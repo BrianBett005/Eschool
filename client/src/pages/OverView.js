@@ -11,11 +11,13 @@ import Tabs from "../components/Tabs";
 
 const OverView = () => {
   const userInfo = useSelector((state) => state.signInInfo);
-
+   const adminInfo = useSelector((state) => state.adminSignInInfo);
   const navigate = useNavigate();
   useEffect(() => {
     if (!userInfo?.userInfo?.school) {
       navigate("/landing_page");
+    } else if (adminInfo?.userInfo?.user) {
+      navigate("/admin");
     }
     // eslint-disable-next-line
   }, []);

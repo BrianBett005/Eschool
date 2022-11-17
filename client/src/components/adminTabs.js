@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { BiRefresh } from "react-icons/bi";
+import { BiLogOut, BiRefresh } from "react-icons/bi";
 import { BsPersonCircle } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -10,22 +10,34 @@ import TabItem from "./TabItem";
 const Tabs = () => {
   const tabItems = [
     {
-      url: "/",
+      url: "/admin",
       title: "Overview",
       icon: <FaHome />,
       id: 1,
     },
     {
-      url: "/schools",
+      url: "/admin/schools",
       title: "My Schools",
       icon: <BsPersonCircle />,
       id: 2,
     },
     {
-      url: "/management",
+      url: "/admin/management",
       title: "Management",
       icon: <BiRefresh />,
       id: 3,
+    },
+    {
+      url: "/admin/edit_profile",
+      title: "Edit Profile",
+      icon: <BiRefresh />,
+      id: 4,
+    },
+    {
+      url: "/admin/logout",
+      title: "Logout",
+      icon: <BiLogOut />,
+      id: 5,
     },
   ];
   const selectedIndex = useRef(0);

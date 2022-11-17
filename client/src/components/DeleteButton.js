@@ -2,16 +2,16 @@ import React from "react";
 
 import styled from "styled-components";
 const DeleteButton = ({ title, props }) => {
-  console.log(props);
   return <Button {...props}>{title}</Button>;
 };
 
-const Button = styled.div`
+const Button = styled.button`
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
+  cursor: pointer;
   line-height: 32px;
-
+  border: none;
   margin-left: 41px;
   font-family: "Dm Sans";
   background: rgba(255, 0, 0, 0.8);

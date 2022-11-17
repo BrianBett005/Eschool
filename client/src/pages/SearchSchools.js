@@ -1,24 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Loader from "../components/Loader";
 import NavbarOne from "../components/NavbarOne";
 import NavbarTwo from "../components/NavbarTwo";
 import Searchbar from "../components/Searchbar";
 
 import SearchResult from "../components/SearchResult";
+import Sidebar from "../components/Sidebar";
 
 const SearchSchools = () => {
-  const searchCategories = [
-    { id: 1, title: "Secondary schools", url: "/secondary_schools" },
-    { id: 2, title: "Tutoring facilties", url: "/tutoring_facilties" },
-    { id: 3, title: "Proprietors", url: "/proprietors" },
-    { id: 4, title: "Award winning schools", url: "/awards" },
-    { id: 4, title: "Award winning schools", url: "/awards" },
-  ];
+  const { loading, schools } = useSelector((state) => state.schools);
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
+  const openSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
   return (
     <Wrapper>
-      <NavbarOne />
-      <NavbarTwo />
+      <Navbars>
+        <NavbarOne />
+        <NavbarTwo openSidebar={openSidebar} />
+        <Sidebar closeSidebar={closeSidebar} sidebarOpen={sidebarOpen} />
+      </Navbars>
       <ContentWrapper>
         <Intro>
           <IntroTitle>
@@ -32,9 +40,17 @@ const SearchSchools = () => {
         <Searchbar />
 
         <Schools>
-          {searchCategories.map((category) => (
-            <SearchResult title={category.title} key={category.id} />
-          ))}
+          {loading ? (
+            <Loader />
+          ) : schools?.length === 0 ? (
+            <h1>No schools matched your query</h1>
+          ) : (
+            schools?.map((school) => (
+              <Link to={`/school/${school._id}`}>
+                <SearchResult key={school._id} {...school} />
+              </Link>
+            ))
+          )}
         </Schools>
       </ContentWrapper>
     </Wrapper>
@@ -47,6 +63,10 @@ const Intro = styled.div`
   margin-bottom: 48px;
   margin-top: 20px;
   position: sticky;
+`;
+const Navbars = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 const IntroTitle = styled.h1`
   font-family: "DM Serif Display";
@@ -88,6 +108,10 @@ const ContentWrapper = styled.div`
   overflow-x: hidden;
   &::-webkit-scrollbar {
     display: none;
+  }
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    padding: 0 20px;
   }
 `;
 const Schools = styled.div`

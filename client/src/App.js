@@ -20,6 +20,20 @@ import Management from "./pages/Management";
 import Logout from "./pages/Logout";
 import SingleEvent from "./pages/SingleEvent";
 import Payment from "./pages/Payment";
+import UserEvents from "./pages/UserEvents";
+import SearchSchools from "./pages/SearchSchools";
+import Home from "./pages/Home";
+import Blog from "./pages/Blog";
+import SingleBlog from "./pages/SingleBlog";
+import Blogs from "./pages/admin/Blogs";
+import Schools from "./pages/admin/Schools";
+import AddUserDetails from "./pages/admin/AddUserDetails";
+import AdminLogin from "./pages/admin/Login";
+import AdminRegister from "./pages/admin/Register";
+import AdminLogout from "./pages/admin/Logout";
+import AdminOverView from "./pages/admin/OverVew";
+import AdminManagement from "./pages/admin/Management";
+import EditUser from "./pages/admin/EditUser";
 function App() {
   return (
     <Router>
@@ -40,6 +54,27 @@ function App() {
         <Route path="/events/:id" element={<SingleEvent />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/school/:school_id" element={<UserEvents />} />
+        <Route path="/search_schools" element={<SearchSchools />} />
+        <Route path="/search" element={<Home />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blogs/:blog_id" element={<SingleBlog />} />
+
+        {/* admin */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/register" element={<AdminRegister />} />
+        <Route path="/details" element={<AddUserDetails />} />
+        <Route path="/forgot_password" element={<ForgotPassword />} />
+        <Route path="/reset_password" element={<ResetPassword />} />
+        <Route path="/landing_page" element={<LandingPage />} />
+        <Route path="/admin" element={<AdminOverView />} />
+        <Route path="/admin/edit_profile" element={<EditUser />} />
+        <Route path="/admin/management" element={<AdminManagement />} />
+        <Route path="/create_blog" element={<CreateEvent />} />
+        <Route path="/admin/logout" element={<AdminLogout />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/:blog_id" element={<SingleBlog />} />
+        <Route path="/admin/schools" element={<Schools />} />
       </Routes>
     </Router>
   );

@@ -31,7 +31,7 @@ const Events = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!userInfo?.userInfo?.school) {
-      navigate("/login");
+      navigate("/landing_page");
     }
     // eslint-disable-next-line
   }, []);
@@ -69,11 +69,15 @@ const Events = () => {
           </Titles>
 
           <EventsList>
-            {events.length === 0 ? (
+            {events?.length === 0 ? (
               <h1>No events to show! Events created will appear here</h1>
             ) : (
               events?.map((event) => {
-                return <Link to={`/events/${event._id}`}><Event key={event._id} {...event} /></Link>
+                return (
+                  <Link to={`/events/${event._id}`}>
+                    <Event key={event._id} {...event} />
+                  </Link>
+                );
               })
             )}
           </EventsList>

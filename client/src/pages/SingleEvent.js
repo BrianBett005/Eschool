@@ -8,11 +8,11 @@ import NavbarOne from "../components/NavbarOne";
 import NavbarTwo from "../components/NavbarTwo";
 const SingleEvent = () => {
   const location = useLocation();
-  const blogId = location.pathname.split("/")[2];
+  const eventId = location.pathname.split("/")[2];
 
-  const { events } = useSelector((state) => state.events);
+  const { events } = useSelector((state) => state.schoolEvents);
 
-  const event = events?.find((event) => event._id === blogId);
+  const event = events?.find((event) => event._id === eventId);
 
   return (
     <Wrapper>
@@ -21,7 +21,7 @@ const SingleEvent = () => {
         <NavbarTwo />
       </Navbars>
       <ContentWrapper>
-        <Image src={event.event_image?.url} />
+        <Image src={event?.event_image?.url} />
         <Time>
           <h2>Event date</h2>
           <div></div>
@@ -124,7 +124,7 @@ const Image = styled.img`
 `;
 
 const Title = styled.h1`
-  font-family: "Test Heldane Display,Dm Sans";
+  font-family: "Test Heldane Display", "Dm Sans";
   font-weight: 500;
   font-size: 48px;
   line-height: 96px;
@@ -136,8 +136,9 @@ const Title = styled.h1`
   font-size: 70px;
   line-height: 90px;
   padding: 30px 0 40px;
-  text-align: center;
+  /* text-align: center; */
   color: #141414;
+  justify-self: flex-start;
 `;
 
 const Profile = styled.div`

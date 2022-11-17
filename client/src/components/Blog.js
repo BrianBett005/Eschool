@@ -1,18 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-const Blog = () => {
+const SingleBlog = ({ image, title, content, createdAt }) => {
   return (
     <Wrapper>
-      <Image src="https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/62/444454/1.jpg?0959" />
+      <Image src={image?.url} />
 
-      <Title>
-        Five warning signs of a bad student you shouldn't ignore. Five warning
-        signs of a bad student you shouldn't ignore.warning signs of a bad
-        student you shouldn't ignore.warning signs of a bad student you
-        shouldn't ignore.
-      </Title>
+      <Title>{title}</Title>
       <Time>
-        <h1>AUG 10,2022</h1>
+        <h1>{new Date(createdAt).toDateString()}</h1>
         <div></div>
         <h2>6 min read</h2>
       </Time>
@@ -23,6 +18,9 @@ const Blog = () => {
 const Wrapper = styled.div`
   cursor: pointer;
   width: 398px;
+  @media screen and (max-width: 1100px) {
+    width: 100%;
+  }
   transition: all 0.6s linear;
   border-radius: 10px;
   box-shadow: 3px 5px 13px #fff;
@@ -32,7 +30,7 @@ const Wrapper = styled.div`
 `;
 const Image = styled.img`
   border: 4px solid #fff;
-  width: 398px;
+  width: 100%;
   height: 291px;
   object-fit: center;
   border-radius: 10px;
@@ -92,4 +90,4 @@ const Time = styled.div`
   }
 `;
 
-export default Blog;
+export default SingleBlog;

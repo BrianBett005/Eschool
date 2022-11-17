@@ -1,13 +1,27 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import {
+  createBlogReducer,
+  getAdminBlogsReducer,
+} from "./admin/reducers/blogReducers";
+import { adminUpdateSchoolReducer } from "./admin/reducers/schoolReducers";
+import {
+  adminSigninReducer,
+  adminSignUpReducer,
+  updateUserReducer,
+} from "./admin/reducers/userReducers";
+import { getMyBlogsReducer } from "./reducers/blogReducers";
 
 import {
   createEventReducer,
   getMyEventsReducer,
+  getSchoolEventsReducer,
 } from "./reducers/eventReducers";
 import { initializePaymentReducer } from "./reducers/paymentReducers";
 import {
+  getAllSchoolsReducer,
   getFeaturedSchoolsReducer,
+  searchSchoolsReducer,
   updateSchoolReducer,
 } from "./reducers/schoolReducers";
 // import { getAllSchoolsReducer } from "./reducers/schoolReducers";
@@ -21,11 +35,27 @@ const reducers = combineReducers({
   event: createEventReducer,
   payment: initializePaymentReducer,
   featured: getFeaturedSchoolsReducer,
+  schools: searchSchoolsReducer,
+  blogs: getMyBlogsReducer,
+  schoolEvents: getSchoolEventsReducer,
+  allSchools: getAllSchoolsReducer,
+  adminSignInInfo: adminSigninReducer,
+  adminSignup: adminSignUpReducer,
+  adminBlogs: getAdminBlogsReducer,
+  blog: createBlogReducer,
+  updateUser: updateUserReducer,
+
+  adminUpdateSchool: adminUpdateSchoolReducer,
 });
 const initialState = {
   signInInfo: {
     userInfo: localStorage.getItem("eSchooluserDetails")
       ? JSON.parse(localStorage.getItem("eSchooluserDetails"))
+      : null,
+  },
+  adminSignInInfo: {
+    userInfo: localStorage.getItem("eSchooladminDetails")
+      ? JSON.parse(localStorage.getItem("eSchooladminDetails"))
       : null,
   },
 };

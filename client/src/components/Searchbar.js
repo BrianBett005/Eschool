@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { GrLocation } from "react-icons/gr";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { searchSchools } from "../redux/actions/schoolActions";
 const Searchbar = () => {
+  const [school, setSchool] = useState("");
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(searchSchools(school));
+    // eslint-disable-next-line
+  }, [school]);
   return (
     <Wrapper>
       <SearchContainer>
         <Icon>
           <AiOutlineSearch />
         </Icon>
-        <Input placeholder="Secondary schools" />
+        <Input
+          placeholder="Secondary schools"
+          onChange={(e) => setSchool(e.target.value)}
+        />
       </SearchContainer>
       <SchoolsCount>
         <Icon>
@@ -26,6 +38,9 @@ const Wrapper = styled.div`
   height: 55px;
   display: flex;
   z-index: 1000;
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 const Icon = styled.div`
