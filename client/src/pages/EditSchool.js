@@ -146,7 +146,7 @@ const EditSchool = () => {
                   accept=".png,.jpg,.jpeg"
                   onChange={(e) => handleBanner(e)}
                 />
-                <Banner id="photo" src={logo}></Banner>
+                <Banner id="photo" src={banner}></Banner>
               </Label>
             </div>
           </Images>
