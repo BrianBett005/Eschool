@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import { Route, Routes, HashRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 // import Home from "./pages/Home";
@@ -36,7 +36,7 @@ import AdminManagement from "./pages/admin/Management";
 import EditUser from "./pages/admin/EditUser";
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -76,7 +76,7 @@ function App() {
         <Route path="/blogs/:blog_id" element={<SingleBlog />} />
         <Route path="/admin/schools" element={<Schools />} />
       </Routes>
-    </Router>
+    </HashRouter>
   );
 }
 
