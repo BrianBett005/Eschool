@@ -1,14 +1,12 @@
 import React from "react";
-import { GrLocation } from "react-icons/gr";
+
 import styled from "styled-components";
-const SearchResult = ({ school_name, address }) => {
+const SearchResult = ({ logo, school_name, address }) => {
   return (
     <Wrapper>
       <Content>
         <div>
-          <Icon>
-            <GrLocation />
-          </Icon>
+          <Logo src={logo?.url} />
           <Texts>
             <Title>{school_name}</Title>
             <Subtitle>{address}</Subtitle>
@@ -35,16 +33,13 @@ const Wrapper = styled.div`
   }
 `;
 
-const Icon = styled.div`
+const Logo = styled.img`
   width: 65px;
   height: 65px;
   border-radius: 50%;
-  opacity: 0.8;
-  background: #0074ba;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
   margin-right: 23px;
+  object-fit: cover;
 `;
 const Content = styled.div`
   display: flex;

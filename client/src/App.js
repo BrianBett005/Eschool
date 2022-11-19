@@ -35,6 +35,7 @@ import AdminOverView from "./pages/admin/OverVew";
 import AdminManagement from "./pages/admin/Management";
 import EditUser from "./pages/admin/EditUser";
 import CreateBLog from "./pages/admin/CreateBlog";
+import SchoolOverview from "./pages/SchoolOverview";
 function App() {
   return (
     <HashRouter>
@@ -60,6 +61,10 @@ function App() {
         <Route path="/search" element={<Home />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blogs/:blog_id" element={<SingleBlog />} />
+        <Route
+          path="/school_overview/:school_id"
+          element={<SchoolOverview />}
+        />
 
         {/* admin */}
         <Route path="/admin/login" element={<AdminLogin />} />

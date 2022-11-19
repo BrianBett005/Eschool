@@ -42,8 +42,8 @@ const deleteEvent = async (req, res) => {
 };
 const getASchoolEvents = async (req, res) => {
   const page = req.query.page || 0;
-  const allEvents = await Event.find({ school: req.school.school_id });
-  const events = await Event.find({ school: req.school.school_id })
+  const allEvents = await Event.find({ school: req.params.school_id });
+  const events = await Event.find({ school: req.params.school_id })
     .populate(["school"])
     .sort("-createdAt")
     .skip(Number(page) * 12)

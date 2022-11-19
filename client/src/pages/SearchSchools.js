@@ -46,7 +46,7 @@ const SearchSchools = () => {
             <h1>No schools matched your query</h1>
           ) : (
             schools?.map((school) => (
-              <Link to={`/school/${school._id}`}>
+              <Link to={`/school_overview/${school?._id}`}>
                 <SearchResult key={school._id} {...school} />
               </Link>
             ))

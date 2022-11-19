@@ -11,7 +11,7 @@ import Tabs from "../components/Tabs";
 
 const OverView = () => {
   const userInfo = useSelector((state) => state.signInInfo);
-   const adminInfo = useSelector((state) => state.adminSignInInfo);
+  const adminInfo = useSelector((state) => state.adminSignInInfo);
   const navigate = useNavigate();
   useEffect(() => {
     if (!userInfo?.userInfo?.school) {

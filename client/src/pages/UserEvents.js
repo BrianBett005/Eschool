@@ -20,6 +20,7 @@ const UserEvents = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const school_id = location.pathname.split("/")[2];
+
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -199,8 +200,11 @@ const Button = styled.button`
 `;
 const Buttons = styled.div`
   display: flex;
-  padding: 20px 0;
+  padding: 100px;
   width: 100%;
+  @media screen and (max-width: 800px) {
+    padding: 20px;
+  }
   justify-content: space-between;
 `;
 const PageCount = styled.div`

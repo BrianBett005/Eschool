@@ -204,8 +204,11 @@ const Button2 = styled.button`
 `;
 const Buttons = styled.div`
   display: flex;
-  padding: 20px;
+  padding: 100px;
   width: 100%;
+  @media screen and (max-width: 800px) {
+    padding: 20px;
+  }
   justify-content: space-between;
 `;
 const PageCount = styled.div`
