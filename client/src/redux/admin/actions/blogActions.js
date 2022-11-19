@@ -7,12 +7,12 @@ import {
   GET_MY_BLOGS_REQUEST,
   GET_MY_BLOGS_SUCCESS,
 } from "../constants/blogConstants";
-export const getMyBlogs = () => async (dispatch, getState) => {
+export const getMyBlogs = (page) => async (dispatch, getState) => {
   dispatch({ type: GET_MY_BLOGS_REQUEST });
   try {
     const token = getState()?.adminSignInInfo?.userInfo?.token;
     const { data } = await axios.get(
-      "https://edet-school.herokuapp.com/api/v1/posts",
+      `https://edet-school.herokuapp.com/api/v1/posts?page=${page}`,
       {
         headers: {
           authorization: `Bearer ${token}`,

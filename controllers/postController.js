@@ -3,7 +3,6 @@ const CustomError = require("../errors");
 const cloudinary = require("../services/cloudinary");
 const { authorizeAdmin } = require("../utils");
 const createPost = async (req, res) => {
-
   req.body.author = req.user.userId;
   if (req.body.image) {
     const result = await cloudinary.uploader.upload(req.body.image, {
@@ -33,8 +32,14 @@ const deletePost = async (req, res) => {
   res.status(200).json("Post deleted successfully");
 };
 const getAllPosts = async (req, res) => {
-  const posts = await Post.find().populate("author");
-  res.status(200).json(posts);
+  const page = req.query.page || 0;
+  const allPosts = await Post.find();
+  const posts = await Post.find({})
+    .populate(["author"])
+    .sort("-createdAt")
+    .skip(Number(page) * 12)
+    .limit(12);
+  res.status(200).json({ count: allPosts.length, posts });
 };
 
 module.exports = { createPost, updatePost, deletePost, getAllPosts };

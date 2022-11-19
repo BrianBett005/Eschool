@@ -41,10 +41,14 @@ const deleteEvent = async (req, res) => {
   res.status(200).json("Event deleted successfully");
 };
 const getASchoolEvents = async (req, res) => {
-  const events = await Event.find({ school: req.params.school_id }).populate(
-    "school"
-  );
-  res.status(200).json(events);
+  const page = req.query.page || 0;
+  const allEvents = await Event.find({ school: req.school.school_id });
+  const events = await Event.find({ school: req.school.school_id })
+    .populate(["school"])
+    .sort("-createdAt")
+    .skip(Number(page) * 12)
+    .limit(12);
+  res.status(200).json({ count: allEvents.length, events });
 };
 const getCurrentSchoolEvents = async (req, res) => {
   const events = await Event.find({ school: req.school.school_id }).populate(

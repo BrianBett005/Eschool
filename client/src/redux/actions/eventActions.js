@@ -58,11 +58,11 @@ export const createEvent = (event) => async (dispatch, getState) => {
     });
   }
 };
-export const getSchoolEvents = (school_id) => async (dispatch) => {
+export const getSchoolEvents = (school_id, page) => async (dispatch) => {
   dispatch({ type: GET_SCHOOL_EVENTS_REQUEST });
   try {
     const { data } = await axios.get(
-      `https://edet-school.herokuapp.com/api/v1/events/school/${school_id}`
+      `https://edet-school.herokuapp.com/api/v1/events/school/${school_id}?page=${page}`
     );
     dispatch({ type: GET_SCHOOL_EVENTS_SUCCESS, payload: data });
   } catch (error) {

@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from "react";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -11,6 +16,8 @@ import { useIsMount } from "../hooks/useIsMount";
 import { getMyBlogs } from "../redux/actions/blogActions";
 const Blog = () => {
   const { loading, blogs, error } = useSelector((state) => state.blogs);
+  const [page, setPage] = useState(0);
+
   const isMount = useIsMount();
   const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -20,11 +27,12 @@ const Blog = () => {
   const openSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
   useEffect(() => {
-    dispatch(getMyBlogs());
+    dispatch(getMyBlogs(page));
 
     // eslint-disable-next-line
-  }, []);
+  }, [page]);
   useEffect(() => {
     if (!isMount) {
       alert(error);
@@ -44,13 +52,45 @@ const Blog = () => {
         <Loader />
       ) : (
         <Blogs>
-          {blogs?.map((blog) => (
+          {blogs?.blogs?.map((blog) => (
             <Link to={`/blogs/${blog._id}`}>
               <SingleBlog key={blog._id} {...blog} />
             </Link>
           ))}
         </Blogs>
       )}
+      <Buttons>
+        <Button
+          onClick={() => setPage(page - 1)}
+          disabled={page === 0 ? true : false}
+        >
+          Previous page
+        </Button>
+        <Button2
+          onClick={() => setPage(page - 1)}
+          disabled={page === 0 ? true : false}
+        >
+          <BsFillArrowLeftCircleFill />
+        </Button2>
+
+        <PageCount>
+          <h1>{`Page ${page + 1}`}</h1>
+          <h2>of</h2>
+          <h1>{Math.ceil(blogs?.count / 10)}</h1>
+        </PageCount>
+        <Button
+          onClick={() => setPage(page + 1)}
+          disabled={page + 1 === Math.ceil(blogs?.count / 10) ? true : false}
+        >
+          Next page
+        </Button>
+        <Button2
+          onClick={() => setPage(page + 1)}
+          disabled={page + 1 === Math.ceil(blogs?.count / 10) ? true : false}
+        >
+          <BsFillArrowRightCircleFill />
+        </Button2>
+      </Buttons>
     </Wrapper>
   );
 };
@@ -106,6 +146,80 @@ const Title = styled.h1`
     font-size: 34px;
     padding: 50px 20px;
     line-height: 37px;
+  }
+`;
+
+const Button = styled.button`
+  width: 152px;
+  padding: 10px 25px;
+  height: 40px;
+  color: white;
+  background: #141414;
+
+  border: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #ffffff;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+  transition: all 0.5s linear;
+  &:hover {
+    border-radius: 26px;
+    color: #e5e5e5;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background: gray;
+  }
+`;
+
+const Button2 = styled.button`
+  width: 50px;
+  padding: 10px 25px;
+  height: 40px;
+  color: white;
+  background: #141414;
+  display: none;
+
+  border: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #ffffff;
+  @media screen and (max-width: 600px) {
+    /* display: block; */
+    text-align: center;
+    display: grid;
+    place-items: center;
+  }
+  transition: all 0.5s linear;
+  &:hover {
+    border-radius: 26px;
+    color: #e5e5e5;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background: gray;
+  }
+`;
+const Buttons = styled.div`
+  display: flex;
+  padding: 20px;
+  width: 100%;
+  justify-content: space-between;
+`;
+const PageCount = styled.div`
+  display: flex;
+  align-items: center;
+  h1 {
+    color: #141414;
+    font-size: 18px;
+    font-style: bold;
+    margin: 0 5px;
+  }
+  h2 {
+    color: gray;
+    font-size: 15px;
   }
 `;
 

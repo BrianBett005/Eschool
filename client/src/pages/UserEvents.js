@@ -10,17 +10,22 @@ import NavbarTwo from "../components/NavbarTwo";
 import Sidebar from "../components/Sidebar";
 import { useIsMount } from "../hooks/useIsMount";
 import { getSchoolEvents } from "../redux/actions/eventActions";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
 const UserEvents = () => {
   const { loading, events, error } = useSelector((state) => state.schoolEvents);
   const isMount = useIsMount();
   const dispatch = useDispatch();
   const location = useLocation();
   const school_id = location.pathname.split("/")[2];
-  useEffect(() => {
-    dispatch(getSchoolEvents(school_id));
+  const [page, setPage] = useState(0);
 
+  useEffect(() => {
+    dispatch(getSchoolEvents(school_id, page));
     // eslint-disable-next-line
-  }, []);
+  }, [page]);
   useEffect(() => {
     if (!isMount) {
       alert(error);
@@ -45,17 +50,49 @@ const UserEvents = () => {
       <Title>Hello! 👋🏾 Welcome to Our Educational Events update</Title>
       {loading ? (
         <Loader />
-      ) : events?.length === 0 ? (
+      ) : events?.events?.length === 0 ? (
         <h1>This school has no events yet</h1>
       ) : (
         <EventsWrapper>
-          {events?.map((event) => (
+          {events?.events?.map((event) => (
             <Link to={`/events/${event._id}`}>
               <Event key={event._id} {...event} />
             </Link>
           ))}
         </EventsWrapper>
       )}
+      <Buttons>
+        <Button2
+          onClick={() => setPage(page - 1)}
+          disabled={page === 0 ? true : false}
+        >
+          <BsFillArrowLeftCircleFill />
+        </Button2>
+
+        <Button
+          onClick={() => setPage(page - 1)}
+          disabled={page === 0 ? true : false}
+        >
+          Previous page
+        </Button>
+        <PageCount>
+          <h1>{`Page ${page + 1}`}</h1>
+          <h2>of</h2>
+          <h1>{Math.ceil(events?.count / 10)}</h1>
+        </PageCount>
+        <Button
+          onClick={() => setPage(page + 1)}
+          disabled={page + 1 === Math.ceil(events?.count / 10) ? true : false}
+        >
+          Next page
+        </Button>
+        <Button2
+          onClick={() => setPage(page + 1)}
+          disabled={page + 1 === Math.ceil(events?.count / 10) ? true : false}
+        >
+          <BsFillArrowRightCircleFill />
+        </Button2>
+      </Buttons>
     </Wrapper>
   );
 };
@@ -109,6 +146,75 @@ const Title = styled.h1`
     font-size: 34px;
     padding: 50px 20px;
     line-height: 37px;
+  }
+`;
+const Button2 = styled.button`
+  width: 50px;
+  padding: 10px 25px;
+  height: 40px;
+  color: white;
+  background: #141414;
+  display: none;
+
+  border: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #ffffff;
+  @media screen and (max-width: 600px) {
+    /* display: block; */
+    text-align: center;
+    display: grid;
+    place-items: center;
+  }
+  transition: all 0.5s linear;
+  &:hover {
+    border-radius: 26px;
+    color: #e5e5e5;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background: gray;
+  }
+`;
+const Button = styled.button`
+  width: 167px;
+  height: 40px;
+  color: white;
+
+  background: #141414;
+
+  border: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #ffffff;
+  transition: all 0.5s linear;
+  &:hover {
+    border-radius: 26px;
+    color: #e5e5e5;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background: gray;
+  }
+`;
+const Buttons = styled.div`
+  display: flex;
+  padding: 20px 0;
+  width: 100%;
+  justify-content: space-between;
+`;
+const PageCount = styled.div`
+  display: flex;
+  align-items: center;
+  h1 {
+    color: #141414;
+    font-size: 18px;
+    font-style: bold;
+    margin: 0 5px;
+  }
+  h2 {
+    color: gray;
+    font-size: 15px;
   }
 `;
 

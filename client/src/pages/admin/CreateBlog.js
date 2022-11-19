@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Select from "../../components/admin/Select";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +23,8 @@ const CreateEvent = () => {
   const [title, setTitle] = useState();
   const [image, setImage] = useState();
   const [content, setDescription] = useState();
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState("General");
+  const options = ["General", "News", "Events", "Academics", "Examination"];
   const handleImage = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -71,10 +73,9 @@ const CreateEvent = () => {
         <Title>Create Blog</Title>
         <Subtitle text="Blogs posted will be visible to all hence the information will reach many." />
 
-        <InputWithLabel
-          label="Blog Category"
-          placeholder="Category e.g. sports"
-          value={category}
+        <Select
+          label="Category e.g Education"
+          options={options}
           onChange={(e) => setCategory(e.target.value)}
         />
         <InputWithLabel

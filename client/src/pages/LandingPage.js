@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import image3 from "../images/image3.jpg";
 import image6 from "../images/image6.jpg";
@@ -16,6 +16,7 @@ import Footer from "../components/Footer";
 import FeaturedSchool from "../components/FeaturedSchool";
 import { useDispatch, useSelector } from "react-redux";
 import { getFeatured } from "../redux/actions/schoolActions";
+import Sidebar from "../components/Sidebar";
 const LandingPage = () => {
   const userInfo = useSelector((state) => state.signInInfo);
 
@@ -32,11 +33,19 @@ const LandingPage = () => {
     // eslint-disable-next-line
   }, []);
   const schools = useSelector((state) => state.featured);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
+  const openSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
   return (
     <Wrapper>
       <Navbars>
         <NavbarOne />
-        <NavbarTwo />
+        <NavbarTwo openSidebar={openSidebar} />
+        <Sidebar closeSidebar={closeSidebar} sidebarOpen={sidebarOpen} />
       </Navbars>
       <ContentWrapper>
         <Left>

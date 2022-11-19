@@ -25,6 +25,9 @@ const Button = styled.button`
     border-radius: 20px;
     opacity: 0.9;
   }
+  @media screen and (max-width: 700px) {
+    padding: 10px 15px;
+  }
 `;
 
 export default BlueButton;

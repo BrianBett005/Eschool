@@ -5,7 +5,8 @@ import { pageLinks } from "../data/pageLinks";
 import BlueButton from "./BlueButton";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-const NavbarTwo = () => {
+import { FaBars } from "react-icons/fa";
+const NavbarTwo = ({ openSidebar }) => {
   const userInfo = useSelector((state) => state.signInInfo?.userInfo);
   return (
     <Wrapper>
@@ -22,6 +23,9 @@ const NavbarTwo = () => {
       <Link to={userInfo?.school ? "/logout" : "/register"}>
         <BlueButton title={userInfo?.school ? "Logout" : "Add your school"} />
       </Link>
+      <NavToggle>
+        <FaBars onClick={openSidebar} />
+      </NavToggle>
     </Wrapper>
   );
 };
@@ -32,6 +36,9 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 100px;
+  @media screen and (max-width: 1150px) {
+    padding: 0 20px;
+  }
 `;
 const Logo = styled.img`
   width: 75px;
@@ -41,6 +48,9 @@ const Logo = styled.img`
 `;
 const Links = styled.div`
   display: flex;
+  @media screen and (max-width: 800px) {
+    display: none;
+  }
 `;
 const PageLink = styled.div`
   font-family: "DM Sans";
@@ -55,6 +65,20 @@ const PageLink = styled.div`
   transition: all 0.5s linear;
   &:hover {
     opacity: 0.8;
+  }
+`;
+const NavToggle = styled.div`
+  cursor: pointer;
+  color: #141414;
+  padding-right: 20px;
+  transition: all 0.6s linear;
+  font-size: 37px;
+  @media screen and (min-width: 800px) {
+    display: none;
+  }
+  &:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
   }
 `;
 export default NavbarTwo;

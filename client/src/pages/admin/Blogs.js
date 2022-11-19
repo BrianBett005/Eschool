@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -14,6 +14,8 @@ import { useIsMount } from "../../hooks/useIsMount";
 import Navbar from "../../components/admin/Navbar";
 const Blogs = () => {
   const userInfo = useSelector((state) => state.adminSignInInfo);
+  const [page, setPage] = useState(0);
+
   const titles = [
     "Blog title",
     "Category",
@@ -24,9 +26,9 @@ const Blogs = () => {
   const isMount = useIsMount();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getMyBlogs());
+    dispatch(getMyBlogs(page));
     // eslint-disable-next-line
-  }, []);
+  }, [page]);
   const { blogs, loading, error } = useSelector((state) => state.blogs);
 
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ const Blogs = () => {
         <TabsWrapper>
           <Tabs />
         </TabsWrapper>
-        <EventsWrapper>
+        <BlogsWrapper>
           <Navbar />
           <div className="container">
             <Title>Blogs</Title>
@@ -67,16 +69,37 @@ const Blogs = () => {
               return <TableTitle title={tableTitle} key={tableTitle} />;
             })}
           </Titles>
-          <EventsList>
-            {blogs?.map((blog) => {
+          <BlogList>
+            {blogs?.blogs?.map((blog) => {
               return (
                 <Link to={`/blogs/${blog._id}`}>
                   <SingleBlog key={blog._id} {...blog} />
                 </Link>
               );
             })}
-          </EventsList>
-        </EventsWrapper>
+          </BlogList>
+          <Buttons>
+            <Button2
+              onClick={() => setPage(page - 1)}
+              disabled={page === 0 ? true : false}
+            >
+              Previous page
+            </Button2>
+            <PageCount>
+              <h1>{`Page ${page + 1}`}</h1>
+              <h2>of</h2>
+              <h1>{Math.ceil(blogs?.count / 10)}</h1>
+            </PageCount>
+            <Button2
+              onClick={() => setPage(page + 1)}
+              disabled={
+                page + 1 === Math.ceil(blogs?.count / 10) ? true : false
+              }
+            >
+              Next page
+            </Button2>
+          </Buttons>
+        </BlogsWrapper>
       </ContentWrapper>
     </Wrapper>
   );
@@ -126,7 +149,7 @@ const Title = styled.h1`
 
   color: #0d0d2b;
 `;
-const EventsWrapper = styled.div`
+const BlogsWrapper = styled.div`
   width: 100%;
   height: 100vh;
   overflow-y: scroll;
@@ -146,7 +169,7 @@ const EventsWrapper = styled.div`
   }
 `;
 
-const EventsList = styled.div`
+const BlogList = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -163,5 +186,46 @@ const Titles = styled.div`
 const TabsWrapper = styled.div`
   width: 340px;
 `;
+const Button2 = styled.button`
+  width: 167px;
+  height: 40px;
+  color: white;
 
+  background: #141414;
+
+  border: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #ffffff;
+  transition: all 0.5s linear;
+  &:hover {
+    border-radius: 26px;
+    color: #e5e5e5;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background: gray;
+  }
+`;
+const Buttons = styled.div`
+  display: flex;
+  padding: 20px;
+  width: 100%;
+
+  justify-content: space-between;
+`;
+const PageCount = styled.div`
+  display: flex;
+  align-items: center;
+  h1 {
+    color: #141414;
+    font-size: 18px;
+    font-style: bold;
+    margin: 0 5px;
+  }
+  h2 {
+    color: gray;
+    font-size: 15px;
+  }
+`;
 export default Blogs;
