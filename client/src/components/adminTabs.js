@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { BiLogOut, BiRefresh } from "react-icons/bi";
 import { BsPersonCircle } from "react-icons/bs";
-import { FaHome } from "react-icons/fa";
+import { FaBlog, FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -32,6 +32,12 @@ const Tabs = () => {
       title: "Edit Profile",
       icon: <BiRefresh />,
       id: 4,
+    },
+    {
+      url: "/admin/blogs",
+      title: "Blogs",
+      icon: <FaBlog />,
+      id: 8,
     },
     {
       url: "/admin/logout",

@@ -59,7 +59,7 @@ const Blogs = () => {
           <Navbar />
           <div className="container">
             <Title>Blogs</Title>
-            <Link to="/create_blog">
+            <Link to="/admin/create_blog">
               <Button>Create Blog</Button>
             </Link>
           </div>

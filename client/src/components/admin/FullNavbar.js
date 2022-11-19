@@ -21,7 +21,7 @@ const Navbar = () => {
       </Link>
       <Right>
         <Link to="/edit">
-          <ProfilePic src={userInfo?.school.profilePic?.url} />
+          <ProfilePic src={userInfo?.user?.profilePic?.url} />
         </Link>
 
         <Notifications>
@@ -98,6 +98,7 @@ const ProfilePic = styled.img`
   cursor: pointer;
   border: 2px solid #000f2d;
   padding-bottom: 30dp;
+  object-fit: cover;
 `;
 
 const Notifications = styled.div`

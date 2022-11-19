@@ -34,6 +34,7 @@ import AdminLogout from "./pages/admin/Logout";
 import AdminOverView from "./pages/admin/OverVew";
 import AdminManagement from "./pages/admin/Management";
 import EditUser from "./pages/admin/EditUser";
+import CreateBLog from "./pages/admin/CreateBlog";
 function App() {
   return (
     <HashRouter>
@@ -70,9 +71,9 @@ function App() {
         <Route path="/admin" element={<AdminOverView />} />
         <Route path="/admin/edit_profile" element={<EditUser />} />
         <Route path="/admin/management" element={<AdminManagement />} />
-        <Route path="/create_blog" element={<CreateEvent />} />
+        <Route path="/admin/create_blog" element={<CreateBLog />} />
         <Route path="/admin/logout" element={<AdminLogout />} />
-        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/admin/blogs" element={<Blogs />} />
         <Route path="/blogs/:blog_id" element={<SingleBlog />} />
         <Route path="/admin/schools" element={<Schools />} />
       </Routes>

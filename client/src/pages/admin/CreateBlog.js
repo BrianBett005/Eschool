@@ -16,7 +16,7 @@ import { HiPhotograph } from "react-icons/hi";
 import { createBlog } from "../../redux/admin/actions/blogActions";
 import Navbar from "../../components/admin/FullNavbar";
 
-const CreateEvent = () => {
+const CreateBLog = () => {
   const { blog, loading, error } = useSelector((state) => state.blog);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -77,6 +77,7 @@ const CreateEvent = () => {
           label="Category e.g Education"
           options={options}
           onChange={(e) => setCategory(e.target.value)}
+          value={category}
         />
         <InputWithLabel
           label="Blog title"
@@ -174,4 +175,4 @@ const FileInput = styled.input`
     border-color: red;
   }
 `;
-export default CreateEvent;
+export default CreateBLog;
