@@ -88,18 +88,20 @@ const LandingPage = () => {
       <SectionWrapper>
         <LandingSection4 />
       </SectionWrapper>
-      <SectionWrapper>
-        <Featured>
-          <FeaturedTitle>Featured Schools</FeaturedTitle>
-          <FeaturedSchools>
-            {schools?.schools?.map((school) => (
-              <SingleFeaturedSchool>
-                <FeaturedSchool key={school._id} {...school} />
-              </SingleFeaturedSchool>
-            ))}
-          </FeaturedSchools>
-        </Featured>
-      </SectionWrapper>
+      {schools?.schools?.length > 0 && (
+        <SectionWrapper>
+          <Featured>
+            <FeaturedTitle>Featured Schools</FeaturedTitle>
+            <FeaturedSchools>
+              {schools?.schools?.map((school) => (
+                <SingleFeaturedSchool>
+                  <FeaturedSchool key={school._id} {...school} />
+                </SingleFeaturedSchool>
+              ))}
+            </FeaturedSchools>
+          </Featured>
+        </SectionWrapper>
+      )}
       <FooterWrapper>
         <Footer />
       </FooterWrapper>

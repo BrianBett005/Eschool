@@ -41,13 +41,13 @@ const Wrapper = styled.div`
 const ImageWrapper = styled.div`
   position: relative;
   width: fit-content;
+  margin-right: 40px;
 `;
 const InfoBtn = styled.div`
   position: absolute;
   bottom: 0;
   left: 45%;
   z-index: 1000;
-  
 `;
 const VerticalWrapper = styled.div`
   display: flex;
@@ -82,7 +82,7 @@ const Description = styled.h2`
 const Image = styled.img`
   width: 100%;
   height: 500px;
-  margin-right: 40px;
+
   object-fit: center;
   @media screen and (max-width: 1150px) {
     margin-bottom: 30px;
