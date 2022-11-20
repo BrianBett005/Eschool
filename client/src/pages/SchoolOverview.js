@@ -22,8 +22,11 @@ const SchoolOverview = () => {
   const location = useLocation();
   const school_id = location.pathname.split("/")[2];
   const { schools } = useSelector((state) => state.schools);
-
-  const school = schools?.find((sch) => sch._id === school_id);
+  const featuredSchools = useSelector((state) => state.featured);
+  let school = schools?.find((sch) => sch._id === school_id);
+  if (!school) {
+    school = featuredSchools.schools?.find((sch) => sch._id === school_id);
+  }
   return (
     <Wrapper>
       <Navbars>

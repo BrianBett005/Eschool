@@ -1,9 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-const FeaturedSchool = ({ logo, motto, description }) => {
+import BlueButton from "./BlueButton";
+const FeaturedSchool = ({ logo, motto, description, _id }) => {
   return (
     <Wrapper>
-      <Image src={logo?.url} />
+      <ImageWrapper>
+        <Image src={logo?.url} />
+        <InfoBtn>
+          <Link to={`/school_overview/${_id}`}>
+            <BlueButton title="View Info" />
+          </Link>
+        </InfoBtn>
+      </ImageWrapper>
       <VerticalWrapper>
         <Motto>{motto}</Motto>
         <Description>{description}</Description>
@@ -27,6 +36,18 @@ const Wrapper = styled.div`
   @media screen and (max-width: 800px) {
     border-radius: 20px;
   }
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
+  width: fit-content;
+`;
+const InfoBtn = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 45%;
+  z-index: 1000;
+  
 `;
 const VerticalWrapper = styled.div`
   display: flex;
@@ -59,7 +80,7 @@ const Description = styled.h2`
 `;
 
 const Image = styled.img`
-  width: 50%;
+  width: 100%;
   height: 500px;
   margin-right: 40px;
   object-fit: center;

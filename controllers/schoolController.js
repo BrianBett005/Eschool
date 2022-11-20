@@ -75,7 +75,7 @@ const getSchool = async (req, res) => {
 const searchSchool = async (req, res) => {
   const query = req.query.school;
   const schools = await School.find({
-    name: { $regex: query, $options: "i" },
+    school_name: { $regex: query, $options: "i" },
   });
   const activeSchools = schools.filter(
     (school) => school.has_activated === true
@@ -89,7 +89,10 @@ const getAllSchools = async (req, res) => {
 };
 
 const adminGetAllSchools = async (req, res) => {
-  const schools = await School.find({});
+  const query = req.query.school;
+  const schools = await School.find({
+    school_name: { $regex: query, $options: "i" },
+  });
   res.status(200).json(schools);
 };
 const updateSchool = async (req, res) => {

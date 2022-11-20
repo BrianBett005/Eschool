@@ -24,17 +24,18 @@ const TextAreaWithLabel = ({
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 456px;
+  /* width: 456px; */
 
   margin-bottom: 10px;
 `;
 const Label = styled.h1`
-  font-family: "DM Sans";
-  font-style: normal;
+  font-family: "DM Serif Display";
+  font-style: bold;
   font-weight: 400;
   margin-bottom: 6px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 28px;
+  color: #141414;
   /* identical to box height, or 200% */
 
   color: #141414;

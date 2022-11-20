@@ -20,12 +20,13 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 const Label = styled.div`
-  font-family: "DM Sans";
-  font-style: normal;
+  font-family: "DM Serif Display";
+  font-style: bold;
   font-weight: 400;
   margin-bottom: 6px;
   font-size: 14px;
   line-height: 28px;
+  color: #141414;
 `;
 
 const Input = styled.input`

@@ -36,6 +36,8 @@ import AdminManagement from "./pages/admin/Management";
 import EditUser from "./pages/admin/EditUser";
 import CreateBLog from "./pages/admin/CreateBlog";
 import SchoolOverview from "./pages/SchoolOverview";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
 function App() {
   return (
     <HashRouter>
@@ -60,6 +62,8 @@ function App() {
         <Route path="/search_schools" element={<SearchSchools />} />
         <Route path="/search" element={<Home />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
         <Route path="/blogs/:blog_id" element={<SingleBlog />} />
         <Route
           path="/school_overview/:school_id"

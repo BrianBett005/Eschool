@@ -69,6 +69,9 @@ const Footer = () => {
         </HorizontalWrapper>
         <Email>edetschools@gmail.com</Email>
       </VerticalWrapper>
+      <Copyright>
+        <span>&copy;</span>Copyright {new Date().getFullYear()}
+      </Copyright>
     </Wrapper>
   );
 };
@@ -150,5 +153,17 @@ const HorizontalWrapper = styled.div`
 const VerticalWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+const Copyright = styled.h2`
+  font-family: "Dm Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+  color: #141414;
+  span {
+    color: black;
+    margin-right: 4px;
+  }
 `;
 export default Footer;

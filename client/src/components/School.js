@@ -13,12 +13,15 @@ const School = ({
   setId,
   setSchoolName,
   setIsFeatured,
+  has_activated,
+  setHasActivated,
 }) => {
   const handleClick = () => {
     setShowModal(true);
     setSchoolName(school_name);
     setId(_id);
     setIsFeatured(is_featured);
+    setHasActivated(has_activated);
   };
 
   return (

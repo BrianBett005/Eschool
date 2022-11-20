@@ -8,13 +8,13 @@ import {
   UPDATE_SCHOOL_SUCCESS,
 } from "../constants/schoolConstants";
 
-export const getAllSchools = () => async (dispatch, getState) => {
+export const getAllSchools = (school) => async (dispatch, getState) => {
   dispatch({ type: GET_ALL_SCHOOLS_REQUEST });
   try {
     const token = getState()?.adminSignInInfo?.userInfo?.token;
 
     const { data } = await axios.get(
-      "https://edet-school.herokuapp.com/api/v1/schools/all",
+      `https://edet-school.herokuapp.com/api/v1/schools/all?school=${school}`,
       {
         headers: {
           authorization: `Bearer ${token}`,

@@ -29,14 +29,15 @@ const Schools = () => {
     "Date Joined",
     "Action",
   ];
+  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllSchools());
+    dispatch(getAllSchools(search));
     // eslint-disable-next-line
-  }, []);
+  }, [search]);
   const { schools, loading } = useSelector((state) => state.allSchools);
 
-  const featured = useSelector((state) => state.updateSchool);
+  const update = useSelector((state) => state.updateSchool);
   const userInfo = useSelector((state) => state.adminSignInInfo);
   const navigate = useNavigate();
   useEffect(() => {
@@ -49,34 +50,35 @@ const Schools = () => {
     const updates = { is_featured: is_featured ? "false" : "true" };
     dispatch(updateSchool(_id, updates));
   };
+  const activateSchool = () => {
+    const updates = { has_activated: has_activated ? "false" : "true" };
+    dispatch(updateSchool(_id, updates));
+  };
   const [is_featured, setIsFeatured] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [school_name, setSchoolName] = useState("");
   const [_id, setId] = useState("");
+  const [has_activated, setHasActivated] = useState();
 
   const isMount = useIsMount();
   useEffect(() => {
     if (!isMount) {
-      if (featured.error) {
-        alert(featured.error);
+      if (update.error) {
+        alert(update.error);
       }
     }
     // eslint-disable-next-line
-  }, [featured.error]);
+  }, [update.error]);
   useEffect(() => {
     if (!isMount) {
-      if (featured.school) {
-        alert(
-          is_featured
-            ? `${school_name} removed from featured`
-            : `${school_name} added to featured`
-        );
+      if (update.school) {
+        alert("School updated succesfully");
         setShowModal(false);
         dispatch(getAllSchools());
       }
     }
     // eslint-disable-next-line
-  }, [featured.school]);
+  }, [update.school]);
   return (
     <Wrapper>
       <TabsWrapper>
@@ -86,6 +88,12 @@ const Schools = () => {
         <Navbar />
         <HorizontalWrapper>
           <Title>Schools</Title>
+          <InputWrapper>
+            <Input
+              placeholder="Search school by name"
+              onChange={(e) => setSearch(e.target)}
+            />
+          </InputWrapper>
           <GreenButton title="Download CSV" />
         </HorizontalWrapper>
 
@@ -107,6 +115,7 @@ const Schools = () => {
                   setSchoolName={setSchoolName}
                   setShowModal={setShowModal}
                   setId={setId}
+                  setHasActivated={setHasActivated}
                 />
               ))}
             </SchoolsList>
@@ -117,9 +126,14 @@ const Schools = () => {
         <CardWrapper onClick={() => setShowModal(false)}>
           <Card>
             <Title>{school_name}</Title>
+            <GreenButton
+              disabled={update.loading}
+              title={has_activated ? "DeActivate" : "Activate"}
+              onClick={activateSchool}
+            />
             <Buttons>
               <GreenButton
-                disabled={featured.loading}
+                disabled={update.loading}
                 title={is_featured ? "Unfeature" : "Feature"}
                 onClick={handleClick}
               />
@@ -172,7 +186,7 @@ const Card = styled.div`
   padding: 39px;
   display: flex;
   margin: auto;
-  z-index: 90000;
+  z-index: 9000;
   width: fit-content;
   height: max-content;
   position: absolute;
@@ -185,7 +199,20 @@ const HorizontalWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
+const InputWrapper = styled.div`
+  border-radius: 40px;
+  width: 40%;
+  margin: 0 auto;
+  background: white;
+`;
+const Input = styled.input`
+  padding: 20px;
+  border-radius: 40px;
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+`;
 const Title = styled.div`
   display: flex;
   align-items: center;

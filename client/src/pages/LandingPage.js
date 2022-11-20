@@ -141,10 +141,10 @@ const FooterWrapper = styled.div`
 const ContentWrapper = styled.div`
   width: 100%;
 
-  padding: 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 100px;
   @media screen and (max-width: 1150px) {
     flex-direction: column;
     padding: 0 20px;
@@ -234,6 +234,7 @@ const FeaturedSchools = styled.div`
     display: none;
   }
 `;
+
 const Right = styled.div`
   width: 50%;
   display: flex;
