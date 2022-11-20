@@ -1,5 +1,5 @@
 import React from "react";
-import school_logo from "./school_logo.png";
+import sch_logo from "../images/logo_sch.png";
 import styled from "styled-components";
 import { pageLinks } from "../data/pageLinks";
 import BlueButton from "./BlueButton";
@@ -11,7 +11,7 @@ const NavbarTwo = ({ openSidebar }) => {
   return (
     <Wrapper>
       <Link to={userInfo?.school ? "/" : "/landing_page"}>
-        <Logo src={school_logo} alt="Logo" />
+        <Logo src={sch_logo} alt="Logo" />
       </Link>
       <Links>
         {pageLinks.map((pageLink) => (
@@ -44,7 +44,7 @@ const Logo = styled.img`
   width: 75px;
   height: 75px;
   cursor: pointer;
-  object-fit: cover;
+  object-fit: center;
 `;
 const Links = styled.div`
   display: flex;

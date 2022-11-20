@@ -40,11 +40,17 @@ const Contact = () => {
             </div>
             Send Message
           </SendBtn>
+
           <Note>
             Please note that this contacts belong to the website and not any
             school on this platform .If you need to contact any school then
             search the school and view its contact information.
           </Note>
+          <Title>Contact address</Title>
+          <Subtitle>
+            PRIMETECH COMPUTER TECHNOLOGY 2 Ifelodun street,Oko-Afo
+            Badagry,Lagos,Nigeria
+          </Subtitle>
         </Form>
       </ContentWrapper>
       <FooterWrapper>

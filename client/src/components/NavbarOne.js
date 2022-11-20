@@ -9,7 +9,7 @@ const NavbarOne = () => {
   return (
     <Wrapper>
       <Content>
-        <PhoneNumber>+234 0800 227 8466</PhoneNumber>
+        <PhoneNumber>+234 0810 640 5712</PhoneNumber>
         <Language>
           <div>
             <MdLanguage />
