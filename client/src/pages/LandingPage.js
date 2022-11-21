@@ -49,7 +49,7 @@ const LandingPage = () => {
       </Navbars>
       <ContentWrapper>
         <Left>
-          <Subtitle>WELCOME TO EDET Schools</Subtitle>
+          <Subtitle>WELCOME TO ESchool</Subtitle>
           <Title>Experience School Networks at its Peak</Title>
           <Buttons>
             <Link to="/register">

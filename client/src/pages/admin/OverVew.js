@@ -50,7 +50,7 @@ const AdminOverView = () => {
           Hey there {userInfo?.userInfo?.user?.username} <Emoji>👋</Emoji>
         </Greeting>
         <HorizontalWrapper>
-          <Subtitle>Here's an overview of EDET</Subtitle>
+          <Subtitle>Here's an overview of ESchool</Subtitle>
           <Link to="/schools">
             <GreenButton title="View comprehensive list" />
           </Link>
