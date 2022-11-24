@@ -68,7 +68,7 @@ const addImages = async (req, res) => {
     await Gallery.create({
       image,
       caption: images[0]?.caption || "",
-      school: req.params.school_id,
+      school: req.school.school_id,
     });
   } else {
     const images1 = await Promise.all([
@@ -79,6 +79,7 @@ const addImages = async (req, res) => {
         return {
           image: { public_id: result.public_id, url: result.secure_url },
           caption: image?.caption,
+          school: req.school.school_id,
         };
       }),
     ]);

@@ -94,7 +94,9 @@ const CreateGallery = () => {
           )}
           <Buttons>
             <Button onClick={appendImage}>Pick Another</Button>
-            <Button onClick={handleClick}>Upload</Button>
+            <Button onClick={handleClick}>
+              {loading ? "Uploading..." : "Upload"}
+            </Button>
           </Buttons>
         </Card>
       </ContentWrapper>
@@ -198,6 +200,10 @@ const Button = styled.div`
   margin-right: 30px;
   cursor: pointer;
   transition: all 0.6s linear;
+  &:disabled{
+    cursor:not-allowed;
+    background:gray ;
+  }
   &:hover {
     opacity: 0.8;
   }
