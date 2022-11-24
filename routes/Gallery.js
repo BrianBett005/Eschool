@@ -3,6 +3,7 @@ const {
   addImages,
   getASchoolImages,
   deleteImages,
+  getMySchoolImages,
 } = require("../controllers/galleryController");
 
 const { authenticateUser } = require("../middlewares/authentication");
@@ -13,5 +14,6 @@ router
   .route("/school/:school_id")
   .get(getASchoolImages)
   .delete(authenticateUser, deleteImages);
+router.route("/my_school").get(authenticateUser, getMySchoolImages);
 
 module.exports = router;

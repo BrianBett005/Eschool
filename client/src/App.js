@@ -38,6 +38,8 @@ import CreateBLog from "./pages/admin/CreateBlog";
 import SchoolOverview from "./pages/SchoolOverview";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import Gallery from "./pages/Gallery";
+import CreateGallery from "./pages/CreateGallery";
 function App() {
   return (
     <HashRouter>
@@ -85,6 +87,8 @@ function App() {
         <Route path="/admin/blogs" element={<Blogs />} />
         <Route path="/blogs/:blog_id" element={<SingleBlog />} />
         <Route path="/admin/schools" element={<Schools />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/create_gallery" element={<CreateGallery />} />
       </Routes>
     </HashRouter>
   );

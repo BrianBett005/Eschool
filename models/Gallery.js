@@ -1,9 +1,14 @@
 const mongoose = require("mongoose");
 const GallerySchema = new mongoose.Schema(
   {
-    images: {
-      type: Array,
-      default: [],
+    image: {
+      public_id: { type: String },
+      url: {
+        type: String,
+      },
+    },
+    caption: {
+      type: String,
     },
     school: {
       type: mongoose.Types.ObjectId,

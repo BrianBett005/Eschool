@@ -3,59 +3,91 @@ const Gallery = require("../models/Gallery");
 const cloudinary = require("../services/cloudinary");
 const CustomError = require("../errors");
 
+// const addImages = async (req, res) => {
+//   const schoolExists = await School.findById(req.params.school_id);
+//   if (!schoolExists) {
+//     throw new CustomError.BadRequestError(
+//       `A school with id ${req.params.school_id} doesn't exist`
+//     );
+//   }
+//   const schoolGalleryExists = await Gallery.findOne({
+//     school: req.params.school_id,
+//   });
+//   const imagesToSave = req.body.images;
+//   if (schoolGalleryExists) {
+//     if (imagesToSave.length === 1) {
+//       const result = await cloudinary.uploader.upload(imagesToSave[0], {
+//         folder: "School",
+//       });
+//       const image = { public_id: result.public_id, url: result.secure_url };
+//       await schoolGalleryExists.updateOne({ images: { $addToSet: image } });
+//     } else {
+//       const images1 = await Promise.all([
+//         imagesToSave.map((image) => {
+//           const result = cloudinary.uploader.upload(image, {
+//             folder: "School",
+//           });
+//           return { public_id: result.public_id, url: result.secure_url };
+//         }),
+//       ]);
+//       await schoolGalleryExists.updateOne({
+//         images: { $addToSet: [...images1] },
+//       });
+//     }
+//   } else {
+//     if (imagesToSave.size === 1) {
+//       const result = await cloudinary.uploader.upload(imagesToSave[0], {
+//         folder: "School",
+//       });
+//       const image = { public_id: result.public_id, url: result.secure_url };
+//       await Gallery.create({ images: image, school: req.params.school_id });
+//     } else {
+//       const images1 = await Promise.all([
+//         imagesToSave.map((image) => {
+//           const result = cloudinary.uploader.upload(image, {
+//             folder: "School",
+//           });
+//           return { public_id: result.public_id, url: result.secure_url };
+//         }),
+//       ]);
+//       await Gallery.create({
+//         images: [...images1],
+//         school: req.params.school_id,
+//       });
+//     }
+//   }
+//   res.status(200).json("Images saved to gallery successfully");
+// };
 const addImages = async (req, res) => {
-  const schoolExists = await School.findById(req.params.school_id);
-  if (!schoolExists) {
-    throw new CustomError.BadRequestError(
-      `A school with id ${req.params.school_id} doesn't exist`
-    );
-  }
-  const schoolGalleryExists = await Gallery.findOne({
-    school: req.params.school_id,
-  });
-  const imagesToSave = req.body.images;
-  if (schoolGalleryExists) {
-    if (imagesToSave.size === 1) {
-      const result = await cloudinary.uploader.upload(imagesToSave[0], {
-        folder: "School",
-      });
-      const image = { public_id: result.public_id, url: result.secure_url };
-      await schoolGalleryExists.updateOne({ images: { $addToSet: image } });
-    } else {
-      const images1 = await Promise.all([
-        imagesToSave.map((image) => {
-          const result = cloudinary.uploader.upload(image, {
-            folder: "School",
-          });
-          return { public_id: result.public_id, url: result.secure_url };
-        }),
-      ]);
-      await schoolGalleryExists.updateOne({
-        images: { $addToSet: [...images1] },
-      });
-    }
+  const images = req.body.images;
+  if (images.length === 1) {
+    const result = await cloudinary.uploader.upload(images[0].image, {
+      folder: "School",
+    });
+    const image = { public_id: result.public_id, url: result.secure_url };
+    await Gallery.create({
+      image,
+      caption: images[0]?.caption || "",
+      school: req.params.school_id,
+    });
   } else {
-    if (imagesToSave.size === 1) {
-      const result = await cloudinary.uploader.upload(imagesToSave[0], {
-        folder: "School",
-      });
-      const image = { public_id: result.public_id, url: result.secure_url };
-      await Gallery.create({ images: image, school: req.params.school_id });
-    } else {
-      const images1 = await Promise.all([
-        imagesToSave.map((image) => {
-          const result = cloudinary.uploader.upload(image, {
-            folder: "School",
-          });
-          return { public_id: result.public_id, url: result.secure_url };
-        }),
-      ]);
-      await Gallery.create({
-        images: [...images1],
-        school: req.params.school_id,
-      });
-    }
+    const images1 = await Promise.all([
+      images.map((image) => {
+        const result = cloudinary.uploader.upload(image?.image, {
+          folder: "School",
+        });
+        return {
+          image: { public_id: result.public_id, url: result.secure_url },
+          caption: image?.caption,
+        };
+      }),
+    ]);
+    await Gallery.create({
+      images: images1,
+      school: req.school.school_id,
+    });
   }
+
   res.status(200).json("Images saved to gallery successfully");
 };
 const deleteImages = async (req, res) => {
@@ -81,9 +113,14 @@ const getASchoolImages = async (req, res) => {
   const images = await Gallery.find({ school: req.params.school_id });
   res.status(200).json(images);
 };
+const getMySchoolImages = async (req, res) => {
+  const images = await Gallery.find({ school: req.school.school_id });
+  res.status(200).json(images);
+};
 
 module.exports = {
   addImages,
   deleteImages,
   getASchoolImages,
+  getMySchoolImages,
 };

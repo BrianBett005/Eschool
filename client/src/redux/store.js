@@ -17,6 +17,11 @@ import {
   getMyEventsReducer,
   getSchoolEventsReducer,
 } from "./reducers/eventReducers";
+import {
+  addToGalleryReducer,
+  getMyGalleryReducer,
+  getSchoolGalleryReducer,
+} from "./reducers/galleryReducers";
 import { initializePaymentReducer } from "./reducers/paymentReducers";
 import {
   getAllSchoolsReducer,
@@ -46,6 +51,9 @@ const reducers = combineReducers({
   updateUser: updateUserReducer,
 
   adminUpdateSchool: adminUpdateSchoolReducer,
+  addGallery: addToGalleryReducer,
+  myGallery: getMyGalleryReducer,
+  schoolGallery: getSchoolGalleryReducer,
 });
 const initialState = {
   signInInfo: {
