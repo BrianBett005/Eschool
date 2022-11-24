@@ -65,6 +65,11 @@ const SchoolOverview = () => {
               <Subtitle>{school?.motto}</Subtitle>
             </VerticalWrapper>
             <VerticalWrapper>
+              <Title>Ownership</Title>
+              <Subtitle>{school?.ownership}</Subtitle>
+            </VerticalWrapper>
+
+            <VerticalWrapper>
               <Title>State</Title>
               <Subtitle>{school?.state}</Subtitle>
             </VerticalWrapper>

@@ -25,7 +25,7 @@ const Footer = () => {
   return (
     <Wrapper>
       <VerticalWrapper>
-        <Title>EDET Schools</Title>
+        <Title>ESchool</Title>
         <Subtitle>
           This is a community for schools in the public sector a well as the
           private sector.

@@ -27,7 +27,7 @@ const AdminLogin = () => {
     // eslint-disable-next-line
   }, [error]);
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo?.user) {
       navigate("/admin");
     }
     // eslint-disable-next-line
