@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-const GalleryImage = () => {
+const GalleryImage = ({ image, caption }) => {
   return (
     <Wrapper>
-      <Image src="https://res.cloudinary.com/dpdtbtb87/image/upload/v1668338052/vlaxhuyyxnxbj38sjv3g.jpg" />
-      <Text>Graduation ceremony</Text>
+      <Image src={image?.url} />
+      <Text>{caption}</Text>
     </Wrapper>
   );
 };
 const Wrapper = styled.div`
   width: 100%;
-  height: 550px;
+  height: 450px;
   position: relative;
   &::after {
     content: "";
@@ -26,6 +26,7 @@ const Wrapper = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100%;
+  border-radius: 20px;
   object-fit: cover;
 `;
 const Text = styled.h2`

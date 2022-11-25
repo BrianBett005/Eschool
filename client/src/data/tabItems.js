@@ -1,6 +1,7 @@
 import { FaHome } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
+import { HiPhotograph } from "react-icons/hi";
 
 export const tabItems = [
   { url: "/", title: "Overview", icon: <FaHome />, id: 1 },
@@ -28,6 +29,12 @@ export const tabItems = [
     title: "Events",
     icon: <BsPersonCircle />,
     id: 6,
+  },
+  {
+    url: "/gallery",
+    title: "Gallery",
+    icon: <HiPhotograph />,
+    id: 8,
   },
 
   {

@@ -38,7 +38,7 @@ import CreateBLog from "./pages/admin/CreateBlog";
 import SchoolOverview from "./pages/SchoolOverview";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
-import Gallery from "./pages/Gallery";
+import Gallery from "./pages/SchoolGallery";
 import CreateGallery from "./pages/CreateGallery";
 function App() {
   return (

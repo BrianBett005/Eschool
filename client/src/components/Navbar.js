@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     // <Wrapper>
     <Right>
-      <Link to="/edit">
+      <Link to="/edit_school">
         <ProfilePic src={userInfo?.school.logo?.url} />
       </Link>
 

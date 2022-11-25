@@ -39,6 +39,7 @@ const Tabs = () => {
       icon: <FaBlog />,
       id: 8,
     },
+    
     {
       url: "/admin/logout",
       title: "Logout",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import NavbarOne from "../components/NavbarOne";
@@ -9,8 +9,10 @@ import Footer from "../components/Footer";
 
 import Sidebar from "../components/Sidebar";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BlueButton from "../components/BlueButton";
+import { getSchoolGallery } from "../redux/actions/galleryActions";
+import GalleryImage from "../components/SchoolGalleryImage";
 const SchoolOverview = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const closeSidebar = () => {
@@ -19,14 +21,22 @@ const SchoolOverview = () => {
   const openSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+  const dispatch = useDispatch();
+
   const location = useLocation();
   const school_id = location.pathname.split("/")[2];
+  useEffect(() => {
+    dispatch(getSchoolGallery(school_id));
+    // eslint-disable-next-line
+  }, []);
   const { schools } = useSelector((state) => state.schools);
   const featuredSchools = useSelector((state) => state.featured);
   let school = schools?.find((sch) => sch._id === school_id);
   if (!school) {
     school = featuredSchools.schools?.find((sch) => sch._id === school_id);
   }
+  const { images } = useSelector((state) => state.myGallery);
+
   return (
     <Wrapper>
       <Navbars>
@@ -79,6 +89,13 @@ const SchoolOverview = () => {
             </VerticalWrapper>
           </ItemsWrapper>
         </HorizontalWrapper>
+        {images.length > 0 && (
+          <ImagesList>
+            {images?.map((image) => (
+              <GalleryImage key={image._id} {...image} />
+            ))}
+          </ImagesList>
+        )}
       </ContentWrapper>
       <FooterWrapper>
         <Footer />
@@ -233,6 +250,19 @@ const Email = styled.h2`
   transition: all 0.6s linear;
   &:hover {
     text-decoration: underline;
+  }
+`;
+const ImagesList = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+
+  grid-template-columns: repeat(autofill, minmax(400px, 1fr));
+  grid-auto-columns: minmax(400px, 1fr);
+  padding: 20px;
+  grid-gap: 20px;
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 export default SchoolOverview;

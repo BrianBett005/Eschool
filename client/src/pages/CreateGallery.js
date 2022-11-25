@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { HiPhotograph } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../components/FullNavbar";
 import InputWithLabel from "../components/InputWithLabel";
@@ -27,6 +28,7 @@ const CreateGallery = () => {
       setImage(null);
       setImages([]);
       setCaption("");
+      setCount(0);
     }
     // eslint-disable-next-line
   }, [gallery]);
@@ -35,6 +37,9 @@ const CreateGallery = () => {
     if (!caption || (images.length === 0 && !image)) {
       alert("Kindly fill all the fields!");
     } else {
+      if (image && images.length === 0) {
+        setImages((current) => [...current, { caption, image }]);
+      }
       dispatch(addToGallery(images));
     }
   };
@@ -62,8 +67,10 @@ const CreateGallery = () => {
   return (
     <Wrapper>
       <Navbar />
-
       <ContentWrapper>
+        <Link to="/gallery">
+          <Button back>Back</Button>
+        </Link>
         <Card>
           <Title>
             Enter a caption then select image(s).caption can be changed for each
@@ -93,8 +100,13 @@ const CreateGallery = () => {
             </Label>
           )}
           <Buttons>
-            <Button onClick={appendImage}>Pick Another</Button>
-            <Button onClick={handleClick}>
+            <Button onClick={appendImage} disabled={!image || !caption}>
+              Pick Another
+            </Button>
+            <Button
+              onClick={handleClick}
+              disabled={loading || (!image && images.length === 0)}
+            >
               {loading ? "Uploading..." : "Upload"}
             </Button>
           </Buttons>
@@ -141,7 +153,7 @@ const Icon = styled.div`
 `;
 
 const Image = styled.img`
-  width: 350px;
+  width: 100%;
   height: 400px;
   object-fit: cover;
 `;
@@ -182,10 +194,12 @@ const FileInput = styled.input`
 const Buttons = styled.div`
   padding: 20px;
   display: flex;
+  width: 100%;
+  justify-content: space-between;
 `;
 
-const Button = styled.div`
-  background: #0074ba;
+const Button = styled.button`
+  background: #141414;
   border-radius: 8px;
   border: none;
   font-family: "DM Sans";
@@ -195,14 +209,16 @@ const Button = styled.div`
   line-height: 24px;
   text-align: center;
   color: #ffffff;
+  width: fit-content;
   /* width: 400px; */
   padding: 10px 40px;
   margin-right: 30px;
+  margin-bottom: ${(props) => props.back && "20px"};
   cursor: pointer;
   transition: all 0.6s linear;
-  &:disabled{
-    cursor:not-allowed;
-    background:gray ;
+  &:disabled {
+    cursor: not-allowed;
+    background: gray;
   }
   &:hover {
     opacity: 0.8;

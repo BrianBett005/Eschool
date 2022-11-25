@@ -28,7 +28,7 @@ export const getMyGalleryReducer = (state = {}, action) => {
     case GET_MY_GALLERY_REQUEST:
       return { ...state, loading: true };
     case GET_MY_GALLERY_SUCCESS:
-      return { ...state, loading: false, gallery: action.payload };
+      return { ...state, loading: false, images: action.payload };
     case GET_MY_GALLERY_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
@@ -40,7 +40,7 @@ export const getSchoolGalleryReducer = (state = {}, action) => {
     case GET_SCHOOL_GALLERY_REQUEST:
       return { ...state, loading: true };
     case GET_SCHOOL_GALLERY_SUCCESS:
-      return { ...state, loading: false, gallery: action.payload };
+      return { ...state, loading: false, images: action.payload };
     case GET_SCHOOL_GALLERY_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
