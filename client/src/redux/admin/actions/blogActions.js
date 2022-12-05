@@ -12,7 +12,7 @@ export const getMyBlogs = (page) => async (dispatch, getState) => {
   try {
     const token = getState()?.adminSignInInfo?.userInfo?.token;
     const { data } = await axios.get(
-      `http://localhost:5000/api/v1/posts/my_posts?page=${page}`,
+      `https://edet-school.herokuapp.com/api/v1/posts/my_posts?page=${page}`,
       {
         headers: {
           authorization: `Bearer ${token}`,
