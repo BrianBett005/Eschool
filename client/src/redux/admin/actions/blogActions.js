@@ -12,7 +12,7 @@ export const getMyBlogs = (page) => async (dispatch, getState) => {
   try {
     const token = getState()?.adminSignInInfo?.userInfo?.token;
     const { data } = await axios.get(
-      `https://edet-school.herokuapp.com/api/v1/posts?page=${page}`,
+      `http://localhost:5000/api/v1/posts/my_posts?page=${page}`,
       {
         headers: {
           authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ export const createBlog = (blog) => async (dispatch, getState) => {
   dispatch({ type: CREATE_BLOG_REQUEST });
   try {
     const token = getState()?.adminSignInInfo?.userInfo?.token;
-    
+
     const { data } = await axios.post(
       "https://edet-school.herokuapp.com/api/v1/posts",
       blog,

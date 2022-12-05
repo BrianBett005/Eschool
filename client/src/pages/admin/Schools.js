@@ -84,14 +84,16 @@ const Schools = () => {
       <TabsWrapper>
         <Tabs />
       </TabsWrapper>
-      <OverViewWrapper>
-        <Navbar />
+      <Wrapper2>
+        <NavWrapper>
+          <Navbar />
+        </NavWrapper>
         <HorizontalWrapper>
           <Title>Schools</Title>
           <InputWrapper>
             <Input
               placeholder="Search school by name"
-              onChange={(e) => setSearch(e.target)}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </InputWrapper>
           <GreenButton title="Download CSV" />
@@ -121,27 +123,27 @@ const Schools = () => {
             </SchoolsList>
           )}
         </SchoolsWrapper>
-      </OverViewWrapper>
-      {showModal && (
-        <CardWrapper onClick={() => setShowModal(false)}>
-          <Card>
-            <Title>{school_name}</Title>
-            <GreenButton
-              disabled={update.loading}
-              title={has_activated ? "DeActivate" : "Activate"}
-              onClick={activateSchool}
-            />
-            <Buttons>
+        {showModal && (
+          <CardWrapper onClick={() => setShowModal(false)}>
+            <Card>
+              <Title>{school_name}</Title>
               <GreenButton
                 disabled={update.loading}
-                title={is_featured ? "Unfeature" : "Feature"}
-                onClick={handleClick}
+                title={has_activated ? "DeActivate" : "Activate"}
+                onClick={activateSchool}
               />
-              <DeleteButton title="Delete School" />
-            </Buttons>
-          </Card>
-        </CardWrapper>
-      )}
+              <Buttons>
+                <GreenButton
+                  disabled={update.loading}
+                  title={is_featured ? "Unfeature" : "Feature"}
+                  onClick={handleClick}
+                />
+                <DeleteButton title="Delete School" />
+              </Buttons>
+            </Card>
+          </CardWrapper>
+        )}
+      </Wrapper2>
     </Wrapper>
   );
 };
@@ -149,23 +151,29 @@ const Schools = () => {
 const Wrapper = styled.div`
   width: 100vw;
   background-color: #e5e5e5;
-  height: 100%;
+  height: 100vh;
   display: flex;
   position: relative;
+`;
+const NavWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
 `;
 const TabsWrapper = styled.div`
   width: 340px;
   height: 100vh;
 `;
 
-const OverViewWrapper = styled.div`
+const Wrapper2 = styled.div`
   width: 100%;
-  height: 100% !important;
 
   display: flex;
   margin-left: 37px;
-  margin-right: 88px;
+  padding-right: 88px;
   flex-direction: column;
+  height: 100%;
+  overflow-y: scroll;
 `;
 const Buttons = styled.div`
   display: flex;
@@ -206,7 +214,7 @@ const InputWrapper = styled.div`
   background: white;
 `;
 const Input = styled.input`
-  padding: 20px;
+  padding: 15px;
   border-radius: 40px;
   height: 100%;
   width: 100%;
@@ -229,14 +237,10 @@ const Title = styled.div`
 
 const SchoolsWrapper = styled.div`
   width: 100%;
-  height: 100vh;
-  overflow-y: scroll;
   display: flex;
   padding-top: 30px;
   flex-direction: column;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  margin-bottom: 40px;
   .container {
     display: flex;
     margin-top: 15px;

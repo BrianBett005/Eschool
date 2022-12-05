@@ -26,7 +26,7 @@ const AdminOverView = () => {
   ];
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllSchools());
+    dispatch(getAllSchools(""));
     // eslint-disable-next-line
   }, []);
   const { schools, loading } = useSelector((state) => state.allSchools);
@@ -51,7 +51,7 @@ const AdminOverView = () => {
         </Greeting>
         <HorizontalWrapper>
           <Subtitle>Here's an overview of ESchool</Subtitle>
-          <Link to="/schools">
+          <Link to="/admin/schools">
             <GreenButton title="View comprehensive list" />
           </Link>
         </HorizontalWrapper>

@@ -46,9 +46,7 @@ const Blogs = () => {
     }
     // eslint-disable-next-line
   }, [error]);
-  if (loading) {
-    return <Loader />;
-  }
+
   return (
     <Wrapper>
       <ContentWrapper>
@@ -63,21 +61,24 @@ const Blogs = () => {
               <Button>Create Blog</Button>
             </Link>
           </div>
-
           <Titles>
             {titles.map((tableTitle) => {
               return <TableTitle title={tableTitle} key={tableTitle} />;
             })}
           </Titles>
-          <BlogList>
-            {blogs?.blogs?.map((blog) => {
-              return (
-                <Link to={`/blogs/${blog._id}`}>
-                  <SingleBlog key={blog._id} {...blog} />
-                </Link>
-              );
-            })}
-          </BlogList>
+          {loading ? (
+            <Loader />
+          ) : (
+            <BlogList>
+              {blogs?.posts?.map((blog) => {
+                return (
+                  <Link to={`/blogs/${blog._id}`}>
+                    <SingleBlog key={blog._id} {...blog} />
+                  </Link>
+                );
+              })}
+            </BlogList>
+          )}
           <Buttons>
             <Button2
               onClick={() => setPage(page - 1)}

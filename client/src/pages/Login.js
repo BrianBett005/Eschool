@@ -97,6 +97,10 @@ const Form = styled.form`
   width: 400px;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 600px) {
+    width: 90vw;
+    margin: auto;
+  }
 `;
 const Buttons = styled.div`
   width: 100%;

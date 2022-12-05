@@ -11,7 +11,7 @@ import Subtitle from "../components/Subtitle";
 import TextAreaWithLabel from "../components/TextAreaWithLabel";
 import Title from "../components/Title";
 import { useIsMount } from "../hooks/useIsMount";
-import { HiPhotograph } from "react-icons/hi";
+import { MdAddPhotoAlternate } from "react-icons/md";
 import { updateSchool } from "../redux/actions/schoolActions";
 
 const AddSchoolDetails = () => {
@@ -125,29 +125,36 @@ const AddSchoolDetails = () => {
           onChange={(e) => setDescription(e.target.value)}
         />
         <Title2>School logo</Title2>
-        <Label htmlFor="photo">
-          <FileInput
-            type="file"
-            id="photo"
-            accept=".png,.jpg,.jpeg"
-            onChange={(e) => handleLogo(e)}
-          />
-          <Icon id="photo">
-            <HiPhotograph />
-          </Icon>
-        </Label>
+        <HorizontalWrapper>
+          <Label htmlFor="photo">
+            <FileInput
+              type="file"
+              id="photo"
+              accept=".png,.jpg,.jpeg"
+              onChange={(e) => handleLogo(e)}
+            />
+            <Icon id="photo">
+              <MdAddPhotoAlternate size="45" />
+            </Icon>
+          </Label>
+          {logo && <Image src={logo} />}
+        </HorizontalWrapper>
+
         <Title2>School banner(optional)</Title2>
-        <Label htmlFor="photo2">
-          <FileInput
-            type="file"
-            id="photo2"
-            accept=".png,.jpg,.jpeg"
-            onChange={(e) => handleBanner(e)}
-          />
-          <Icon id="photo2">
-            <HiPhotograph />
-          </Icon>
-        </Label>
+        <HorizontalWrapper>
+          <Label htmlFor="photo2">
+            <FileInput
+              type="file"
+              id="photo2"
+              accept=".png,.jpg,.jpeg"
+              onChange={(e) => handleBanner(e)}
+            />
+            <Icon id="photo2">
+              <MdAddPhotoAlternate size="45" />
+            </Icon>
+          </Label>
+          {banner && <Image src={banner} />}
+        </HorizontalWrapper>
 
         <SignupButton
           title={loading ? "Updating school...." : "Update School"}
@@ -168,6 +175,16 @@ const Wrapper = styled.div`
   flex-direction: column;
   padding: 30px 0;
 `;
+const HorizontalWrapper = styled.div`
+  margin-bottom: 20px;
+  display: flex;
+`;
+const Image = styled.img`
+  width: 80px;
+  height: 80px;
+  margin-left: 40px;
+  object-fit: cover;
+`;
 const Form = styled.form`
   display: flex;
   width: 456px;
@@ -178,7 +195,6 @@ const Label = styled.label`
   cursor: pointer;
   display: flex;
   position: relative;
-  margin-bottom: 20px;
 `;
 const Icon = styled.div`
   color: #000f2d;

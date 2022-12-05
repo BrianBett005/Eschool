@@ -52,7 +52,7 @@ const Blog = () => {
         <Loader />
       ) : (
         <Blogs>
-          {blogs?.blogs?.map((blog) => (
+          {blogs?.posts?.map((blog) => (
             <Link to={`/blogs/${blog._id}`}>
               <SingleBlog key={blog._id} {...blog} />
             </Link>

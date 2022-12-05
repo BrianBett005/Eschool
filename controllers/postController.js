@@ -41,5 +41,21 @@ const getAllPosts = async (req, res) => {
     .limit(12);
   res.status(200).json({ count: allPosts.length, posts });
 };
+const getAllMyPosts = async (req, res) => {
+  const page = req.query.page || 0;
+  const allPosts = await Post.find({ author: req.user.userId });
+  const posts = await Post.find({ author: req.user.userId })
+    .populate(["author"])
+    .sort("-createdAt")
+    .skip(Number(page) * 12)
+    .limit(12);
+  res.status(200).json({ count: allPosts.length, posts });
+};
 
-module.exports = { createPost, updatePost, deletePost, getAllPosts };
+module.exports = {
+  createPost,
+  updatePost,
+  deletePost,
+  getAllPosts,
+  getAllMyPosts,
+};

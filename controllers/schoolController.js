@@ -92,7 +92,7 @@ const adminGetAllSchools = async (req, res) => {
   const query = req.query.school;
   const schools = await School.find({
     school_name: { $regex: query, $options: "i" },
-  });
+  }).sort("-createdAt");
   res.status(200).json(schools);
 };
 const updateSchool = async (req, res) => {
