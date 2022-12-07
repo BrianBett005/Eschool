@@ -11,6 +11,7 @@ import {
   updateUserReducer,
 } from "./admin/reducers/userReducers";
 import { getMyBlogsReducer } from "./reducers/blogReducers";
+import { createCommentReducer, getCommentsReducer } from "./reducers/commentReducers";
 
 import {
   createEventReducer,
@@ -49,11 +50,12 @@ const reducers = combineReducers({
   adminBlogs: getAdminBlogsReducer,
   blog: createBlogReducer,
   updateUser: updateUserReducer,
-
   adminUpdateSchool: adminUpdateSchoolReducer,
   addGallery: addToGalleryReducer,
   myGallery: getMyGalleryReducer,
   schoolGallery: getSchoolGalleryReducer,
+  comment: createCommentReducer,
+  comments:getCommentsReducer
 });
 const initialState = {
   signInInfo: {

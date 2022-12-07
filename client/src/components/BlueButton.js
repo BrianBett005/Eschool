@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-const BlueButton = ({ onClick, title }) => {
-  return <Button onClick={onClick}>{title}</Button>;
+const BlueButton = ({ onClick, title, disabled }) => {
+  return (
+    <Button onClick={onClick} disabled={disabled}>
+      {title}
+    </Button>
+  );
 };
 
 const Button = styled.button`
@@ -24,6 +28,10 @@ const Button = styled.button`
   &:hover {
     border-radius: 20px;
     opacity: 0.9;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background: gray;
   }
   @media screen and (max-width: 700px) {
     padding: 10px 15px;

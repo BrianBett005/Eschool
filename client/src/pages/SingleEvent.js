@@ -12,7 +12,7 @@ const SingleEvent = () => {
 
   const { events } = useSelector((state) => state.schoolEvents);
 
-  const event = events?.find((event) => event._id === eventId);
+  const event = events?.events?.find((event) => event._id === eventId);
 
   return (
     <Wrapper>
@@ -38,7 +38,7 @@ const SingleEvent = () => {
                 <AuthorTitle>{event.school?.email}</AuthorTitle>
               </div>
             </Profile>
-            <Category></Category>
+
             <Categories>
               <Category1>{event.category}</Category1>
               <Category2>Consult</Category2>
@@ -80,13 +80,25 @@ const Navbars = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px 100px;
+
+  @media screen and (min-width: 1150px) {
+    padding: 10px 100px;
+  }
+  @media screen and (max-width: 1150px) {
+    padding: 10px 20px;
+  }
 `;
 const Time = styled.div`
   display: flex;
-  margin: 40px 0;
+
   align-items: center;
   text-align: center;
+  @media screen and(max-width:600px) {
+    margin: 25px 0;
+  }
+  @media screen and(min-width:600px) {
+    margin: 40px 0;
+  }
   h1 {
     font-family: "DM Sans";
     font-style: bold;
@@ -100,7 +112,6 @@ const Time = styled.div`
     height: 6px;
     border-radius: 50%;
     background: #141414;
-
     margin: 0 10px;
   }
   h2 {
@@ -121,6 +132,10 @@ const Image = styled.img`
   width: 100%;
   height: 500px;
   object-fit: fill;
+  @media screen and (max-width: 600px) {
+    height: 400px;
+    object-fit: cover;
+  }
 `;
 
 const Title = styled.h1`
@@ -129,16 +144,19 @@ const Title = styled.h1`
   font-size: 48px;
   line-height: 96px;
   letter-spacing: 0.04em;
-
   color: #141414;
-
   font-weight: 700;
   font-size: 70px;
   line-height: 90px;
   padding: 30px 0 40px;
-  /* text-align: center; */
+
   color: #141414;
-  justify-self: flex-start;
+  @media screen and (max-width: 800px) {
+    line-height: 50px;
+    padding: 20px 0;
+    font-size: 50px;
+    align-self: flex-start;
+  }
 `;
 
 const Profile = styled.div`
@@ -175,6 +193,9 @@ const AuthorTitle = styled.h2`
 const HorizontalWrapper = styled.div`
   display: flex;
   width: 100%;
+  @media screen and (max-width: 800px) {
+    flex-direction: column-reverse;
+  }
 `;
 const Description = styled.h2`
   font-family: "DM Sans";
@@ -183,6 +204,9 @@ const Description = styled.h2`
   font-size: 20px;
   line-height: 45px;
   color: #141414;
+  @media screen and (max-width: 800px) {
+    margin-bottom: 20px;
+  }
 `;
 const ProfilePic = styled.img`
   width: 70px;
@@ -198,16 +222,7 @@ const Left = styled.div`
   margin-right: 80px;
   flex-basis: 6;
 `;
-const Category = styled.h1`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 32px;
-  letter-spacing: -0.02em;
-  font-family: "DM Sans";
-  color: #141414;
-  margin-bottom: 15px;
-`;
+
 const Categories = styled.div`
   display: flex;
   margin-bottom: 45px;

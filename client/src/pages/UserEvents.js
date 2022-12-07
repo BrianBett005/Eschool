@@ -62,38 +62,40 @@ const UserEvents = () => {
           ))}
         </EventsWrapper>
       )}
-      <Buttons>
-        <Button2
-          onClick={() => setPage(page - 1)}
-          disabled={page === 0 ? true : false}
-        >
-          <BsFillArrowLeftCircleFill />
-        </Button2>
+      {events?.events?.length > 0 && (
+        <Buttons>
+          <Button2
+            onClick={() => setPage(page - 1)}
+            disabled={page === 0 ? true : false}
+          >
+            <BsFillArrowLeftCircleFill />
+          </Button2>
 
-        <Button
-          onClick={() => setPage(page - 1)}
-          disabled={page === 0 ? true : false}
-        >
-          Previous page
-        </Button>
-        <PageCount>
-          <h1>{`Page ${page + 1}`}</h1>
-          <h2>of</h2>
-          <h1>{Math.ceil(events?.count / 10)}</h1>
-        </PageCount>
-        <Button
-          onClick={() => setPage(page + 1)}
-          disabled={page + 1 === Math.ceil(events?.count / 10) ? true : false}
-        >
-          Next page
-        </Button>
-        <Button2
-          onClick={() => setPage(page + 1)}
-          disabled={page + 1 === Math.ceil(events?.count / 10) ? true : false}
-        >
-          <BsFillArrowRightCircleFill />
-        </Button2>
-      </Buttons>
+          <Button
+            onClick={() => setPage(page - 1)}
+            disabled={page === 0 ? true : false}
+          >
+            Previous page
+          </Button>
+          <PageCount>
+            <h1>{`Page ${page + 1}`}</h1>
+            <h2>of</h2>
+            <h1>{Math.ceil(events?.count / 10)}</h1>
+          </PageCount>
+          <Button
+            onClick={() => setPage(page + 1)}
+            disabled={page + 1 === Math.ceil(events?.count / 10) ? true : false}
+          >
+            Next page
+          </Button>
+          <Button2
+            onClick={() => setPage(page + 1)}
+            disabled={page + 1 === Math.ceil(events?.count / 10) ? true : false}
+          >
+            <BsFillArrowRightCircleFill />
+          </Button2>
+        </Buttons>
+      )}
     </Wrapper>
   );
 };

@@ -28,15 +28,26 @@ const PostSchema = new Schema(
     tags: {
       type: [String],
     },
-    comments: {
-      type: Array,
-      default: [],
+
+    averageRating: {
+      type: Number,
+      default: 0,
+    },
+    numOfComments: {
+      type: Number,
+      default: 0,
     },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 PostSchema.pre("remove", async function (next) {
   await this.model("Comment").deleteMany({ post: this._id });
+});
+PostSchema.virtual("comments", {
+  ref: "Comment",
+  localField: "_id",
+  foreignField: "post",
+  justOne: false,
 });
 
 module.exports = mongoose.model("Post", PostSchema);

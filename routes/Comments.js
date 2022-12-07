@@ -4,5 +4,6 @@ const {
   getAPostComments,
 } = require("../controllers/commentController");
 const router = Router();
-router.route("/:post_id").get(getAPostComments).post(createComment);
+router.route("/:postId").get(getAPostComments);
+router.route("/").post(createComment);
 module.exports = router;

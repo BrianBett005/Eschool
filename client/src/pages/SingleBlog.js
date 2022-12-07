@@ -1,18 +1,53 @@
-import React from "react";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { FaFacebook, FaInstagram, FaStar, FaTwitter } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import BlueButton from "../components/BlueButton";
 import Footer from "../components/Footer";
+import Loader from "../components/Loader";
 import NavbarOne from "../components/NavbarOne";
 import NavbarTwo from "../components/NavbarTwo";
+import SingleComment from "../components/SingleComment";
+import TextAreaWithLabel from "../components/TextAreaWithLabel";
+import {
+  createComment,
+  getBlogComments,
+} from "../redux/actions/commentActions";
 const SingleBlog = () => {
   const location = useLocation();
   const blogId = location.pathname.split("/")[2];
 
   const { blogs } = useSelector((state) => state.blogs);
 
-  const blog = blogs?.find((blog) => blog._id === blogId);
+  const blog = blogs?.posts?.find((blog) => blog._id === blogId);
+  const [userReview, setReview] = useState("");
+  const [rating, setRatingValue] = useState(null);
+  const [hoverValue, setHoverValue] = useState(null);
+  const review = useSelector((state) => state.comment);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBlogComments(blogId));
+
+    // eslint-disable-next-line
+  }, []);
+
+  const handleChange = (e) => {
+    setReview(e.target.value);
+  };
+
+  useEffect(() => {
+    if (review.comment) {
+      setRatingValue(null);
+      setReview("");
+    }
+  }, [review.comment]);
+  const addReview = () => {
+    const comment = { rating, title: userReview, post: blogId };
+    dispatch(createComment(comment));
+  };
+  const { comments, loading, error } = useSelector((state) => state.comments);
+  // const { error, success } = review;
 
   return (
     <Wrapper>
@@ -21,25 +56,36 @@ const SingleBlog = () => {
         <NavbarTwo />
       </Navbars>
       <ContentWrapper>
-        <Image src={blog.image?.url} />
+        <Image src={blog?.image?.url} />
         <Time>
-          <h1>{new Date(blog.createdAt).toDateString()}</h1>
-          <div></div>
+          <h1>{new Date(blog?.createdAt).toDateString()}</h1>
+          <div className="dot"></div>
           <h2>6 min read</h2>
+          <Ratings>
+            {Array(blog?.averageRating)
+              .fill()
+              .map((_, i) => {
+                return (
+                  <Star key={i}>
+                    <FaStar />
+                  </Star>
+                );
+              })}
+          </Ratings>
         </Time>
-        <Title>{blog.title}</Title>
+        <Title>{blog?.title}</Title>
         <HorizontalWrapper>
           <Left>
             <Profile>
-              <ProfilePic src={blog.author?.profilePic?.url} />
+              <ProfilePic src={blog?.author?.profilePic?.url} />
               <div>
-                <Author>{blog.author?.username}</Author>
-                <AuthorTitle>{blog.author?.title}</AuthorTitle>
+                <Author>{blog?.author?.username}</Author>
+                <AuthorTitle>{blog?.author?.title}</AuthorTitle>
               </div>
             </Profile>
             <Category></Category>
             <Categories>
-              <Category1>{blog.category}</Category1>
+              <Category1>{blog?.category}</Category1>
               <Category2>Consult</Category2>
             </Categories>
             <Title2>Share this article</Title2>
@@ -55,14 +101,70 @@ const SingleBlog = () => {
               </Social>
             </Socials>
           </Left>
-          <Description>{blog.content}</Description>
+          <Description>{blog?.content}</Description>
         </HorizontalWrapper>
+        <ReviewWrapper>
+          <ReviewsTitle>Comments</ReviewsTitle>
+          <TextAreaWithLabel
+            label="Your comment"
+            placeholder="Comment on this post"
+            onChange={handleChange}
+            rows={4}
+          ></TextAreaWithLabel>
+          <Rating>
+            {Array(5)
+              .fill()
+              .map((_, i) => {
+                const ratingValue = i + 1;
+                return (
+                  <RatingLabel key={i}>
+                    <Input
+                      type="radio"
+                      name="rating"
+                      value={ratingValue}
+                      onChange={() => setRatingValue(ratingValue)}
+                    />
+                    <RatingStar>
+                      <FaStar
+                        color={
+                          ratingValue <= (hoverValue || rating)
+                            ? "#ffc107"
+                            : "gray"
+                        }
+                        size={30}
+                        onMouseEnter={() => setHoverValue(ratingValue)}
+                        onMouseLeave={() => setHoverValue(null)}
+                      />
+                    </RatingStar>
+                  </RatingLabel>
+                );
+              })}
+          </Rating>
+          <BlueButton
+            onClick={addReview}
+            disabled={review.loading || !rating || !userReview}
+            title={review?.loading ? "Submitting..." : "Submit"}
+          />
+        </ReviewWrapper>
+        {blog?.numOfComments && (
+          <Title3>Number of comments: {blog.numOfComments}</Title3>
+        )}
+        <CommentsList>
+          {loading ? (
+            <Loader />
+          ) : error ? (
+            <h3>There was an error loading the comments</h3>
+          ) : (
+            comments?.map((comment) => (
+              <SingleComment key={comment._id} {...comment} />
+            ))
+          )}
+        </CommentsList>
         <Footer />
       </ContentWrapper>
     </Wrapper>
   );
 };
-
 const Wrapper = styled.div`
   display: flex;
   overflow-y: auto;
@@ -76,16 +178,29 @@ const Navbars = styled.div`
   flex-direction: column;
   position: sticky;
 `;
+const Ratings = styled.div`
+  display: flex;
+  margin-left: 10px;
+`;
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px 100px;
+
+  @media screen and (min-width: 1150px) {
+    padding: 10px 100px;
+  }
+  @media screen and (max-width: 1150px) {
+    padding: 10px 20px;
+  }
 `;
 const Time = styled.div`
   display: flex;
   margin: 40px 0;
   align-items: center;
   text-align: center;
+  @media screen and(max-width:600px) {
+    margin: 20px 0;
+  }
   h1 {
     font-family: "DM Sans";
     font-style: bold;
@@ -94,7 +209,7 @@ const Time = styled.div`
     line-height: 28px;
     color: #141414;
   }
-  div {
+  .dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
@@ -120,23 +235,30 @@ const Image = styled.img`
   width: 100%;
   height: 500px;
   object-fit: fill;
+  @media screen and (max-width: 600px) {
+    height: 400px;
+    object-fit: cover;
+  }
 `;
 
 const Title = styled.h1`
-  font-family: "Test Heldane Display,Dm Sans";
+  font-family: "Test Heldane Display", "Dm Sans";
   font-weight: 500;
   font-size: 48px;
   line-height: 96px;
   letter-spacing: 0.04em;
-
   color: #141414;
-
   font-weight: 700;
   font-size: 70px;
   line-height: 90px;
   padding: 30px 0 40px;
-  text-align: center;
   color: #141414;
+  @media screen and (max-width: 800px) {
+    line-height: 50px;
+    padding: 20px 0;
+    font-size: 50px;
+    align-self: flex-start;
+  }
 `;
 
 const Profile = styled.div`
@@ -173,6 +295,9 @@ const AuthorTitle = styled.h2`
 const HorizontalWrapper = styled.div`
   display: flex;
   width: 100%;
+  @media screen and (max-width: 800px) {
+    flex-direction: column-reverse;
+  }
 `;
 const Description = styled.h2`
   font-family: "DM Sans";
@@ -181,6 +306,9 @@ const Description = styled.h2`
   font-size: 20px;
   line-height: 45px;
   color: #141414;
+  @media screen and (max-width: 800px) {
+    margin-bottom: 20px;
+  }
 `;
 const ProfilePic = styled.img`
   width: 70px;
@@ -261,5 +389,48 @@ const Social = styled.div`
   display: grid;
   margin-right: 20px;
   place-items: center;
+`;
+const Input = styled.input`
+  display: none;
+`;
+const RatingLabel = styled.label``;
+const RatingStar = styled.span`
+  transition: color 0.2s;
+  cursor: pointer;
+`;
+const Star = styled.div`
+  color: yellow;
+  padding-right: 1px;
+`;
+const Rating = styled.div``;
+const ReviewWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 30px 0;
+  max-width: 600px;
+  width: 100%;
+`;
+const ReviewsTitle = styled.h3`
+  text-decoration: underline;
+  margin-bottom: 3px;
+`;
+const CommentsList = styled.div`
+  display: grid;
+  grid-gap: 20px;
+  @media screen and (min-width: 1300px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media screen and (max-width: 1300px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+`;
+const Title3 = styled.h3`
+  font-size: 16px;
 `;
 export default SingleBlog;

@@ -24,7 +24,7 @@ const FeaturedSchool = ({ logo, motto, description, _id }) => {
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 50px;
+  padding: 30px;
   width: 100%;
   border-radius: 40px;
   background-color: #fff;
@@ -48,6 +48,8 @@ const InfoBtn = styled.div`
   bottom: 0;
   left: 45%;
   z-index: 1000;
+  top: 50%;
+  translate: -50%;
 `;
 const VerticalWrapper = styled.div`
   display: flex;
@@ -73,7 +75,7 @@ const Description = styled.h2`
   font-size: 20px;
   line-height: 40px;
   letter-spacing: -0.02em;
-  margin: 30px 0;
+  margin: 20px 0 0;
   @media screen and (max-width: 800px) {
     font-size: 18px;
   }
@@ -81,7 +83,7 @@ const Description = styled.h2`
 
 const Image = styled.img`
   width: 100%;
-  height: 500px;
+  height: 400px;
 
   object-fit: center;
   @media screen and (max-width: 1150px) {

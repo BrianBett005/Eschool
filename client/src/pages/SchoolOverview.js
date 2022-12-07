@@ -22,7 +22,6 @@ const SchoolOverview = () => {
     setSidebarOpen(!sidebarOpen);
   };
   const dispatch = useDispatch();
-
   const location = useLocation();
   const school_id = location.pathname.split("/")[2];
   useEffect(() => {
@@ -89,7 +88,7 @@ const SchoolOverview = () => {
             </VerticalWrapper>
           </ItemsWrapper>
         </HorizontalWrapper>
-        {images.length > 0 && (
+        {images?.length > 0 && (
           <ImagesList>
             {images?.map((image) => (
               <GalleryImage key={image._id} {...image} />
@@ -133,7 +132,7 @@ const ContentWrapper = styled.div`
   justify-content: space-between;
   flex-direction: column;
   @media screen and (max-width: 1150px) {
-    padding: 10px 20px;
+    padding: 20px;
   }
 `;
 
@@ -188,7 +187,7 @@ const SchoolName = styled.h1`
     line-height: 50px;
   }
   @media screen and (max-width: 500px) {
-    font-size: 45px;
+    font-size: 32px;
     line-height: 50px;
   }
   color: #141414;

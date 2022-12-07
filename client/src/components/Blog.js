@@ -1,6 +1,7 @@
 import React from "react";
+import { FaStar } from "react-icons/fa";
 import styled from "styled-components";
-const SingleBlog = ({ image, title, content, createdAt }) => {
+const SingleBlog = ({ image, title, content, createdAt, averageRating }) => {
   return (
     <Wrapper>
       <Image src={image?.url} />
@@ -8,8 +9,19 @@ const SingleBlog = ({ image, title, content, createdAt }) => {
       <Title>{title}</Title>
       <Time>
         <h1>{new Date(createdAt).toDateString()}</h1>
-        <div></div>
+        <div className="dot"></div>
         <h2>6 min read</h2>
+        <Rating>
+          {Array(averageRating)
+            .fill()
+            .map((_, i) => {
+              return (
+                <Star key={i}>
+                  <FaStar />
+                </Star>
+              );
+            })}
+        </Rating>
       </Time>
     </Wrapper>
   );
@@ -27,6 +39,14 @@ const Wrapper = styled.div`
   &:hover {
     box-shadow: 15px 12px 24px #fff;
   }
+`;
+const Star = styled.div`
+  color: yellow;
+  padding-right: 1px;
+`;
+const Rating = styled.div`
+  display: flex;
+  margin-left: 6px;
 `;
 const Image = styled.img`
   border: 4px solid #fff;
@@ -68,7 +88,7 @@ const Time = styled.div`
     line-height: 28px;
     color: #141414;
   }
-  div {
+  .dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
